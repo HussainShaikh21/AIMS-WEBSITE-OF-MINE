@@ -1,0 +1,6 @@
+{
+  "name": "Asian Institute of Medical Sciences (AIMS)",
+  "description": "World-Class Super Specialty Healthcare, Diagnostics & Emergency Portal",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
