@@ -122,6 +122,7 @@ export const App: React.FC = () => {
         onOpenBooking={() => handleOpenBooking()}
         onOpenPortal={() => setIsPortalOpen(true)}
         onOpenTriage={() => setIsTriageOpen(true)}
+        onOpenAdmin={() => setIsAdminOpen(true)}
       />
 
       {/* MODALS & DRAWERS */}

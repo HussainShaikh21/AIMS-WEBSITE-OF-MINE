@@ -97,7 +97,7 @@ export const CTScanLanding: React.FC<CTScanLandingProps> = ({ onBookDiagnostic, 
                 </div>
                 <div className="flex justify-between items-center border-t border-slate-800 pt-2 text-white">
                   <span className="font-bold">Estimated Cost:</span>
-                  <span className="text-xl font-black text-amber-400">₹{scanOptions[selectedScanType].price.toLocaleString()}</span>
+                  <span className="text-xl font-black text-amber-400">PKR {scanOptions[selectedScanType].price.toLocaleString()}</span>
                 </div>
               </div>
 

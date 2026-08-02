@@ -25,39 +25,31 @@ import { DEPARTMENTS_DATA, DIAGNOSTICS_DATA } from '../data/hospitalData';
 
 interface NavbarProps {
   onOpenBooking: (deptId?: string, docId?: string) => void;
-  onOpenPatientPortal: () => void;
-  onOpenAdminPanel: () => void;
+  onOpenPortal: () => void;
+  onOpenAdmin: () => void;
   onOpenTriage: () => void;
-  activeSection: string;
-  setActiveSection: (section: string) => void;
+  onNavigateSection: (sectionId: string) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenBooking,
-  onOpenPatientPortal,
-  onOpenAdminPanel,
+  onOpenPortal,
+  onOpenAdmin,
   onOpenTriage,
-  activeSection,
-  setActiveSection
+  onNavigateSection,
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('English');
   const [selectedBranch, setSelectedBranch] = useState('Central Campus');
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [megaMenuTab, setMegaMenuTab] = useState<'departments' | 'diagnostics'>('departments');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const languages = ['English', 'Hindi (हिंदी)', 'Gujarati (ગુજરાતી)', 'Marathi (मराठी)', 'Spanish'];
+  const languages = ['English', 'Urdu (اردو)', 'Sindhi (سنڌي)'];
 
   const handleNavClick = (sectionId: string) => {
-    setActiveSection(sectionId);
+    onNavigateSection(sectionId);
     setIsMobileMenuOpen(false);
     setIsMegaMenuOpen(false);
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
   };
 
   return (
@@ -65,48 +57,14 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Top Utility Bar */}
       <div className="bg-slate-900 text-white text-xs py-2 px-4 sm:px-6 lg:px-8 font-medium">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-          {/* Emergency & Contact */}
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-            <a
-              href="tel:1066"
-              className="flex items-center gap-1.5 text-blue-400 font-bold hover:text-blue-300 transition-colors"
-              id="top-emergency-hotline"
-            >
-              <PhoneCall className="w-3.5 h-3.5" />
-              <span>EMERGENCY: 1066 / +91 1800 246 7990</span>
-            </a>
-            <span className="hidden md:flex items-center gap-1.5 opacity-80">
-              <MapPin className="w-3.5 h-3.5" />
-              <span>New Delhi, India (Main Campus)</span>
-            </span>
-            <a
-              href="https://wa.me/919820145990"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden lg:flex items-center gap-1.5 opacity-80 hover:opacity-100 transition-opacity"
-              id="top-whatsapp-link"
-            >
-              <MessageSquare className="w-3.5 h-3.5" />
-              <span>WhatsApp: +91 98201 45990</span>
-            </a>
+          {/* Welcome Tagline */}
+          <div className="flex items-center gap-2 text-slate-300 font-medium">
+            <HeartPulse className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Asian Institute of Medical Sciences • Dedicated 24/7 Super-Specialty Healthcare</span>
           </div>
 
-          {/* Branch & Language Selector & Links */}
+          {/* Language Selector */}
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1 text-slate-300">
-              <MapPin className="w-3.5 h-3.5 text-blue-400" />
-              <select
-                value={selectedBranch}
-                onChange={(e) => setSelectedBranch(e.target.value)}
-                className="bg-slate-800 text-slate-100 text-xs rounded border border-slate-700 px-2 py-0.5 focus:outline-none focus:border-blue-500 cursor-pointer"
-                id="top-branch-select"
-              >
-                <option value="Central Campus">AIMS Main Campus</option>
-                <option value="North Metro">AIMS Heart & Neuro</option>
-                <option value="South Suburbs">AIMS Women & Children</option>
-              </select>
-            </div>
-
             <div className="flex items-center gap-1 text-slate-300">
               <Globe className="w-3.5 h-3.5 text-blue-400" />
               <select
@@ -122,25 +80,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                 ))}
               </select>
             </div>
-
-            <span className="opacity-30">|</span>
-
-            <button
-              onClick={onOpenAdminPanel}
-              className="hidden sm:flex items-center gap-1 text-slate-300 hover:text-blue-400 transition-colors"
-              title="Hospital Staff & Doctor Admin Portal"
-              id="top-admin-button"
-            >
-              <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
-              <span>Staff Portal</span>
-            </button>
           </div>
         </div>
       </div>
 
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-200/80">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between min-h-[7rem] py-3.5">
           {/* Logo */}
           <div className="flex items-center cursor-pointer py-1" onClick={() => handleNavClick('hero')}>
             <AIMSLogo size="md" variant="full" />
@@ -150,17 +96,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600">
             <button
               onClick={() => handleNavClick('hero')}
-              className={`transition-colors ${
-                activeSection === 'hero' ? 'text-blue-600 font-bold' : 'hover:text-blue-600'
-              }`}
+              className="hover:text-blue-600 transition-colors"
             >
               Home
             </button>
             <button
               onClick={() => handleNavClick('about')}
-              className={`transition-colors ${
-                activeSection === 'about' ? 'text-blue-600 font-bold' : 'hover:text-blue-600'
-              }`}
+              className="hover:text-blue-600 transition-colors"
             >
               About Us
             </button>
@@ -169,11 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="relative group" onMouseEnter={() => setIsMegaMenuOpen(true)} onMouseLeave={() => setIsMegaMenuOpen(false)}>
               <button
                 onClick={() => handleNavClick('departments')}
-                className={`flex items-center gap-1 transition-colors ${
-                  activeSection === 'departments' || activeSection === 'diagnostics'
-                    ? 'text-blue-600 font-bold'
-                    : 'hover:text-blue-600'
-                }`}
+                className="flex items-center gap-1 transition-colors hover:text-blue-600"
               >
                 <span>Departments</span>
                 <ChevronDown className="w-4 h-4" />
@@ -287,27 +225,19 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <button
               onClick={() => handleNavClick('doctors')}
-              className={`transition-colors ${
-                activeSection === 'doctors' ? 'text-blue-600 font-bold' : 'hover:text-blue-600'
-              }`}
+              className="hover:text-blue-600 transition-colors"
             >
               Doctors
             </button>
             <button
               onClick={() => handleNavClick('diagnostics')}
-              className={`transition-colors ${
-                activeSection === 'diagnostics' || activeSection === 'ct-scan'
-                  ? 'text-blue-600 font-bold'
-                  : 'hover:text-blue-600'
-              }`}
+              className="hover:text-blue-600 transition-colors"
             >
               Diagnostics
             </button>
             <button
               onClick={() => handleNavClick('packages')}
-              className={`transition-colors ${
-                activeSection === 'packages' ? 'text-blue-600 font-bold' : 'hover:text-blue-600'
-              }`}
+              className="hover:text-blue-600 transition-colors"
             >
               Health Packages
             </button>
@@ -325,7 +255,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
 
             <button
-              onClick={onOpenPatientPortal}
+              onClick={onOpenPortal}
               className="px-4 py-2.5 text-xs font-bold text-slate-700 hover:text-blue-600 bg-white hover:bg-slate-50 rounded-full transition-colors border border-slate-200 flex items-center gap-1.5"
               id="nav-patient-portal-button"
             >
@@ -346,7 +276,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Mobile Menu Button */}
           <div className="lg:hidden flex items-center gap-2">
             <button
-              onClick={onOpenPatientPortal}
+              onClick={onOpenPortal}
               className="p-2 text-slate-700 bg-slate-100 rounded-lg text-xs font-bold flex items-center gap-1"
             >
               <User className="w-4 h-4 text-cyan-600" />

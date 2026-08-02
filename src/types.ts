@@ -34,6 +34,9 @@ export interface Doctor {
   languages: string[];
   location: string;
   awards?: string[];
+  opdNo?: string;
+  phone?: string;
+  pmdc?: string;
 }
 
 export interface DiagnosticService {

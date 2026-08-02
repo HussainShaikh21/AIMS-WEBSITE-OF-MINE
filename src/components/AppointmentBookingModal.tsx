@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AIMSLogo } from './AIMSLogo';
 import { Department, Doctor, Appointment } from '../types';
-import { DEPARTMENTS_DATA, DOCTORS_DATA } from '../data/hospitalData';
+import { DEPARTMENTS_DATA, getStoredDoctors } from '../data/hospitalData';
 import {
   X,
   Calendar as CalendarIcon,
@@ -17,7 +17,8 @@ import {
   MessageSquare,
   ShieldCheck,
   ChevronRight,
-  ArrowLeft
+  ArrowLeft,
+  UserCheck
 } from 'lucide-react';
 
 interface AppointmentBookingModalProps {
@@ -33,12 +34,21 @@ export const AppointmentBookingModal: React.FC<AppointmentBookingModalProps> = (
   onClose,
   onBookingComplete
 }) => {
+  const [doctors, setDoctors] = useState<Doctor[]>(() => getStoredDoctors());
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setDoctors(getStoredDoctors());
+    };
+    window.addEventListener('aims_doctors_updated', handleUpdate);
+    return () => window.removeEventListener('aims_doctors_updated', handleUpdate);
+  }, []);
 
   // Form State
   const [selectedBranch, setSelectedBranch] = useState('AIMS Main Campus');
   const [departmentId, setDepartmentId] = useState<string>(initialDepartmentId || DEPARTMENTS_DATA[0].id);
-  const [doctorId, setDoctorId] = useState<string>(initialDoctorId || DOCTORS_DATA[0].id);
+  const [doctorId, setDoctorId] = useState<string>(initialDoctorId || doctors[0]?.id || 'doc-aims-1');
   const [appointmentDate, setAppointmentDate] = useState<string>(
     new Date(Date.now() + 86400000 * 2).toISOString().split('T')[0]
   );
@@ -55,13 +65,13 @@ export const AppointmentBookingModal: React.FC<AppointmentBookingModalProps> = (
   const [confirmedAppointment, setConfirmedAppointment] = useState<Appointment | null>(null);
 
   // Available Doctors filtered by chosen Department
-  const filteredDoctors = DOCTORS_DATA.filter((d) => d.departmentId === departmentId);
+  const filteredDoctors = doctors.filter((d) => d.departmentId === departmentId);
   const activeDepartment = DEPARTMENTS_DATA.find((d) => d.id === departmentId) || DEPARTMENTS_DATA[0];
-  const activeDoctor = DOCTORS_DATA.find((d) => d.id === doctorId) || filteredDoctors[0] || DOCTORS_DATA[0];
+  const activeDoctor = doctors.find((d) => d.id === doctorId) || filteredDoctors[0] || doctors[0];
 
   const handleDepartmentChange = (id: string) => {
     setDepartmentId(id);
-    const firstDoc = DOCTORS_DATA.find((d) => d.departmentId === id);
+    const firstDoc = doctors.find((d) => d.departmentId === id);
     if (firstDoc) {
       setDoctorId(firstDoc.id);
     }
@@ -205,7 +215,13 @@ export const AppointmentBookingModal: React.FC<AppointmentBookingModalProps> = (
             {/* Doctor Card Preview */}
             {activeDoctor && (
               <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex items-center gap-4">
-                <img src={activeDoctor.imageUrl} alt={activeDoctor.name} className="w-14 h-14 rounded-full object-cover border-2 border-cyan-500" />
+                {activeDoctor.imageUrl ? (
+                  <img src={activeDoctor.imageUrl} alt={activeDoctor.name} className="w-14 h-14 rounded-full object-cover border-2 border-cyan-500 shrink-0" />
+                ) : (
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-600 to-blue-700 text-white flex items-center justify-center font-bold border-2 border-cyan-400 shrink-0 shadow">
+                    <UserCheck className="w-7 h-7 text-white" />
+                  </div>
+                )}
                 <div className="text-xs">
                   <h4 className="font-bold text-slate-900">{activeDoctor.name}</h4>
                   <p className="text-slate-500">{activeDoctor.qualifications}</p>
@@ -339,7 +355,7 @@ export const AppointmentBookingModal: React.FC<AppointmentBookingModalProps> = (
 
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs flex items-center justify-between text-slate-700">
               <span>Consultation Booking Fee:</span>
-              <span className="font-extrabold text-sm text-cyan-700">₹{activeDoctor.consultationFee}</span>
+              <span className="font-extrabold text-sm text-cyan-700">PKR {activeDoctor.consultationFee.toLocaleString()}</span>
             </div>
 
             <div className="pt-3 border-t border-slate-100 flex justify-between">

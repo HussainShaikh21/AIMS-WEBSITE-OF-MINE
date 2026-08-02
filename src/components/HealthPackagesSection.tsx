@@ -46,8 +46,8 @@ export const HealthPackagesSection: React.FC<HealthPackagesSectionProps> = ({ on
 
                 {/* Pricing */}
                 <div className="mb-4 bg-slate-50 p-3 rounded-xl border border-slate-100 flex items-baseline gap-2">
-                  <span className="text-2xl font-black text-cyan-700">₹{pkg.discountedPrice.toLocaleString()}</span>
-                  <span className="text-xs text-slate-400 line-through">₹{pkg.originalPrice.toLocaleString()}</span>
+                  <span className="text-2xl font-black text-cyan-700">PKR {pkg.discountedPrice.toLocaleString()}</span>
+                  <span className="text-xs text-slate-400 line-through">PKR {pkg.originalPrice.toLocaleString()}</span>
                   <span className="text-[10px] font-bold text-emerald-600 bg-emerald-100 px-1.5 py-0.5 rounded ml-auto">
                     Save {Math.round(((pkg.originalPrice - pkg.discountedPrice) / pkg.originalPrice) * 100)}%
                   </span>

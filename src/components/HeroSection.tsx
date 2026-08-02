@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Search,
   Calendar,
@@ -15,7 +15,8 @@ import {
   CheckCircle2,
   Stethoscope
 } from 'lucide-react';
-import { DOCTORS_DATA, DEPARTMENTS_DATA } from '../data/hospitalData';
+import { getStoredDoctors, DEPARTMENTS_DATA } from '../data/hospitalData';
+import { Doctor } from '../types';
 
 interface HeroSectionProps {
   onOpenBooking: (deptId?: string, docId?: string) => void;
@@ -32,9 +33,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onSelectDepartment,
   onNavigateSection
 }) => {
+  const [doctors, setDoctors] = useState<Doctor[]>(() => getStoredDoctors());
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<{ type: 'doctor' | 'dept'; id: string; name: string; subtitle: string }[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setDoctors(getStoredDoctors());
+    };
+    window.addEventListener('aims_doctors_updated', handleUpdate);
+    return () => window.removeEventListener('aims_doctors_updated', handleUpdate);
+  }, []);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -47,7 +57,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     setIsSearching(true);
     const q = val.toLowerCase();
 
-    const matchedDocs = DOCTORS_DATA.filter(
+    const matchedDocs = doctors.filter(
       (d) =>
         d.name.toLowerCase().includes(q) ||
         d.departmentName.toLowerCase().includes(q) ||

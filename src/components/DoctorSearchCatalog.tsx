@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Doctor } from '../types';
-import { DOCTORS_DATA, DEPARTMENTS_DATA } from '../data/hospitalData';
-import { Search, Star, Award, Calendar, MapPin, Stethoscope, Clock, CheckCircle2, ChevronRight, Filter } from 'lucide-react';
+import { getStoredDoctors, DEPARTMENTS_DATA } from '../data/hospitalData';
+import { Search, Star, Clock, MapPin, Filter, UserCheck, Stethoscope } from 'lucide-react';
 
 interface DoctorSearchCatalogProps {
   onBookAppointment: (deptId: string, docId: string) => void;
@@ -12,11 +12,20 @@ export const DoctorSearchCatalog: React.FC<DoctorSearchCatalogProps> = ({
   onBookAppointment,
   onSelectDoctor
 }) => {
+  const [doctors, setDoctors] = useState<Doctor[]>(() => getStoredDoctors());
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDeptId, setSelectedDeptId] = useState<string>('all');
   const [selectedExp, setSelectedExp] = useState<string>('all');
 
-  const filteredDoctors = DOCTORS_DATA.filter((doc) => {
+  useEffect(() => {
+    const handleUpdate = () => {
+      setDoctors(getStoredDoctors());
+    };
+    window.addEventListener('aims_doctors_updated', handleUpdate);
+    return () => window.removeEventListener('aims_doctors_updated', handleUpdate);
+  }, []);
+
+  const filteredDoctors = doctors.filter((doc) => {
     const matchesSearch =
       doc.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       doc.departmentName.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -103,13 +112,25 @@ export const DoctorSearchCatalog: React.FC<DoctorSearchCatalogProps> = ({
               className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-cyan-300 transition-all duration-300 overflow-hidden flex flex-col justify-between group"
             >
               <div>
-                {/* Image Banner */}
-                <div className="relative h-48 bg-slate-100 overflow-hidden">
-                  <img
-                    src={doc.imageUrl}
-                    alt={doc.name}
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  />
+                {/* Image / Avatar Banner */}
+                <div className="relative h-48 bg-gradient-to-br from-slate-900 via-slate-800 to-cyan-950 text-white overflow-hidden flex items-center justify-center">
+                  {doc.imageUrl ? (
+                    <img
+                      src={doc.imageUrl}
+                      alt={doc.name}
+                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="flex flex-col items-center justify-center text-center p-4 space-y-2">
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-600 to-blue-700 text-white flex items-center justify-center font-black shadow-lg border border-cyan-400/30 group-hover:scale-105 transition-transform">
+                        <Stethoscope className="w-8 h-8 text-cyan-200" />
+                      </div>
+                      <div className="space-y-0.5 max-w-[90%]">
+                        <span className="text-xs font-bold text-white block truncate">{doc.name}</span>
+                        <span className="text-[10px] text-cyan-300 font-medium block truncate">{doc.opdNo || 'OPD Consultant'}</span>
+                      </div>
+                    </div>
+                  )}
                   <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full flex items-center gap-1">
                     <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
                     <span>{doc.rating} ({doc.reviewCount})</span>
@@ -152,7 +173,7 @@ export const DoctorSearchCatalog: React.FC<DoctorSearchCatalogProps> = ({
               <div className="p-5 pt-0 border-t border-slate-100 mt-2 flex items-center justify-between gap-2">
                 <div>
                   <span className="text-[10px] text-slate-400 block font-semibold">Consultation Fee</span>
-                  <span className="text-sm font-black text-slate-900">₹{doc.consultationFee}</span>
+                  <span className="text-sm font-black text-slate-900">PKR {doc.consultationFee.toLocaleString()}</span>
                 </div>
                 <button
                   onClick={() => onBookAppointment(doc.departmentId, doc.id)}

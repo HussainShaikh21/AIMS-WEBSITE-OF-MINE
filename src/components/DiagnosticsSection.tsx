@@ -81,7 +81,7 @@ export const DiagnosticsSection: React.FC<DiagnosticsSectionProps> = ({ onBookDi
                   </div>
                   <div className="flex justify-between items-center text-slate-500 font-medium">
                     <span>Test Fee:</span>
-                    <span className="font-bold text-cyan-700">₹{service.price.toLocaleString()}</span>
+                    <span className="font-bold text-cyan-700">PKR {service.price.toLocaleString()}</span>
                   </div>
                 </div>
               </div>

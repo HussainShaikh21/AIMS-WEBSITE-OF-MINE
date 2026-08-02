@@ -86,7 +86,7 @@ export const DonationSection: React.FC = () => {
                 </h3>
 
                 <div>
-                  <label className="block text-slate-300 font-bold mb-2">Select Donation Amount (INR)</label>
+                  <label className="block text-slate-300 font-bold mb-2">Select Donation Amount (PKR)</label>
                   <div className="grid grid-cols-4 gap-2 mb-2">
                     {[1000, 5000, 10000, 25000].map((val) => (
                       <button
@@ -102,14 +102,14 @@ export const DonationSection: React.FC = () => {
                             : 'bg-slate-800 text-slate-300 border-slate-700 hover:border-slate-500'
                         }`}
                       >
-                        ₹{val.toLocaleString()}
+                        PKR {val.toLocaleString()}
                       </button>
                     ))}
                   </div>
 
                   <input
                     type="number"
-                    placeholder="Or enter custom amount in ₹..."
+                    placeholder="Or enter custom amount in PKR..."
                     value={customAmount}
                     onChange={(e) => setCustomAmount(e.target.value)}
                     className="w-full p-2.5 bg-slate-800 text-white rounded-xl border border-slate-700 focus:outline-none focus:border-cyan-500"
@@ -160,7 +160,7 @@ export const DonationSection: React.FC = () => {
                   id="donate-now-button"
                 >
                   <CreditCard className="w-4 h-4" />
-                  <span>Donate ₹{(customAmount ? Number(customAmount) : amount).toLocaleString()} & Generate 80G Certificate</span>
+                  <span>Donate PKR {(customAmount ? Number(customAmount) : amount).toLocaleString()} & Generate 80G Certificate</span>
                 </button>
               </form>
             ) : (
@@ -194,7 +194,7 @@ export const DonationSection: React.FC = () => {
                     </div>
                     <div>
                       <span className="text-slate-500 block">Amount:</span>
-                      <span className="font-black text-emerald-400 text-sm">₹{(customAmount ? Number(customAmount) : amount).toLocaleString()}</span>
+                      <span className="font-black text-emerald-400 text-sm">PKR {(customAmount ? Number(customAmount) : amount).toLocaleString()}</span>
                     </div>
                   </div>
                 </div>

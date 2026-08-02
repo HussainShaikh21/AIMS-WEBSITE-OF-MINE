@@ -1,7 +1,7 @@
-import React from 'react';
-import { Department } from '../types';
-import { X, CheckCircle2, Clock, BedDouble, Stethoscope, Calendar, ArrowRight, ShieldCheck } from 'lucide-react';
-import { DOCTORS_DATA } from '../data/hospitalData';
+import React, { useState, useEffect } from 'react';
+import { Department, Doctor } from '../types';
+import { X, CheckCircle2, Clock, BedDouble, Stethoscope, Calendar, UserCheck, ShieldCheck } from 'lucide-react';
+import { getStoredDoctors } from '../data/hospitalData';
 
 interface DepartmentDetailModalProps {
   department: Department | null;
@@ -14,9 +14,19 @@ export const DepartmentDetailModal: React.FC<DepartmentDetailModalProps> = ({
   onClose,
   onBookAppointment
 }) => {
+  const [doctors, setDoctors] = useState<Doctor[]>(() => getStoredDoctors());
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setDoctors(getStoredDoctors());
+    };
+    window.addEventListener('aims_doctors_updated', handleUpdate);
+    return () => window.removeEventListener('aims_doctors_updated', handleUpdate);
+  }, []);
+
   if (!department) return null;
 
-  const deptDoctors = DOCTORS_DATA.filter((d) => d.departmentId === department.id);
+  const deptDoctors = doctors.filter((d) => d.departmentId === department.id);
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto animate-in fade-in duration-200">
@@ -109,7 +119,13 @@ export const DepartmentDetailModal: React.FC<DepartmentDetailModalProps> = ({
                 {deptDoctors.map((doc) => (
                   <div key={doc.id} className="p-3 rounded-xl border border-slate-200 flex items-center justify-between bg-white shadow-sm">
                     <div className="flex items-center gap-3">
-                      <img src={doc.imageUrl} alt={doc.name} className="w-10 h-10 rounded-full object-cover border border-slate-200" />
+                      {doc.imageUrl ? (
+                        <img src={doc.imageUrl} alt={doc.name} className="w-10 h-10 rounded-full object-cover border border-slate-200" />
+                      ) : (
+                        <div className="w-10 h-10 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-xs border border-cyan-400 shrink-0">
+                          <UserCheck className="w-5 h-5" />
+                        </div>
+                      )}
                       <div>
                         <h4 className="text-xs font-bold text-slate-900">{doc.name}</h4>
                         <p className="text-[10px] text-slate-500">{doc.qualifications}</p>

@@ -299,7 +299,7 @@ export const PatientPortalModal: React.FC<PatientPortalModalProps> = ({ onClose,
                   <h4 className="font-bold text-slate-900">OPD Consultation & Diagnostic Package</h4>
                   <p className="text-slate-500">Invoice #INV-2026-991 • Paid via Cashless TPA</p>
                 </div>
-                <span className="text-sm font-black text-emerald-600">PAID ₹1,500</span>
+                <span className="text-sm font-black text-emerald-600">PAID PKR 1,500</span>
               </div>
             </div>
           </div>
