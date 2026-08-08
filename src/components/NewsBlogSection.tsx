@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
-import { NEWS_ARTICLES } from '../data/hospitalData';
+import React, { useState, useEffect } from 'react';
+import { getStoredNews } from '../data/hospitalData';
 import { NewsArticle } from '../types';
 import { Clock, User, Tag, ArrowRight, X, BookOpen, Share2 } from 'lucide-react';
 
 export const NewsBlogSection: React.FC = () => {
+  const [news, setNews] = useState<NewsArticle[]>(() => getStoredNews());
   const [selectedArticle, setSelectedArticle] = useState<NewsArticle | null>(null);
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setNews(getStoredNews());
+    };
+    window.addEventListener('aims_news_updated', handleUpdate);
+    return () => window.removeEventListener('aims_news_updated', handleUpdate);
+  }, []);
 
   return (
     <section id="news" className="py-16 bg-white border-b border-slate-200">
@@ -22,7 +31,7 @@ export const NewsBlogSection: React.FC = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {NEWS_ARTICLES.map((art) => (
+          {news.map((art) => (
             <div
               key={art.id}
               onClick={() => setSelectedArticle(art)}

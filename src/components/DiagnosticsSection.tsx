@@ -17,7 +17,7 @@ export const DiagnosticsSection: React.FC<DiagnosticsSectionProps> = ({ onBookDi
     if (!reportSearchId.trim()) return;
     setReportStatusResult({
       status: 'Ready - Verified by Radiologist',
-      patientName: 'Rajesh Malhotra',
+      patientName: 'Tariq Mahmood',
       reportName: '128-Slice Cardiac CT Angiography',
       date: 'July 25, 2026'
     });

@@ -285,7 +285,7 @@ export const AppointmentBookingModal: React.FC<AppointmentBookingModalProps> = (
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Rajesh Malhotra"
+                  placeholder="e.g. Tariq Mahmood"
                   value={patientName}
                   onChange={(e) => setPatientName(e.target.value)}
                   className="w-full p-2.5 bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:border-cyan-500"

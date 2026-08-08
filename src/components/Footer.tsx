@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { AIMSLogo } from './AIMSLogo';
 import {
   HeartPulse,
@@ -13,7 +13,11 @@ import {
   Heart,
   User,
   ExternalLink,
-  MessageSquare
+  MessageSquare,
+  Eye,
+  ZoomIn,
+  Check,
+  Microscope
 } from 'lucide-react';
 
 interface FooterProps {
@@ -22,6 +26,7 @@ interface FooterProps {
   onOpenPortal: () => void;
   onOpenTriage: () => void;
   onOpenAdmin: () => void;
+  onOpenResearch?: (tab?: 'overview' | 'policies' | 'irb' | 'sops' | 'forms' | 'publications' | 'contact') => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -30,7 +35,25 @@ export const Footer: React.FC<FooterProps> = ({
   onOpenPortal,
   onOpenTriage,
   onOpenAdmin,
+  onOpenResearch,
 }) => {
+  const [isA11yMode, setIsA11yMode] = useState<boolean>(() => {
+    return localStorage.getItem('aims_a11y_mode') === 'true';
+  });
+
+  useEffect(() => {
+    if (isA11yMode) {
+      document.documentElement.classList.add('accessibility-mode');
+      localStorage.setItem('aims_a11y_mode', 'true');
+    } else {
+      document.documentElement.classList.remove('accessibility-mode');
+      localStorage.setItem('aims_a11y_mode', 'false');
+    }
+  }, [isA11yMode]);
+
+  const toggleAccessibility = () => {
+    setIsA11yMode(prev => !prev);
+  };
   return (
     <footer className="bg-slate-950 text-white border-t border-slate-800 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,13 +81,22 @@ export const Footer: React.FC<FooterProps> = ({
               <span>1066 / +92 22 111 246 799</span>
             </a>
             <a
-              href="https://wa.me/923001234567"
+              href="https://wa.me/923163355355"
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-3 bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs rounded-xl transition-all flex items-center gap-2 border border-emerald-500/40"
             >
               <MessageSquare className="w-4 h-4 text-emerald-300" />
-              <span>WhatsApp Us</span>
+              <span>WhatsApp 1: +92 316 3355355</span>
+            </a>
+            <a
+              href="https://wa.me/923343355356"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-3 bg-emerald-800 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition-all flex items-center gap-2 border border-emerald-500/40"
+            >
+              <MessageSquare className="w-4 h-4 text-emerald-300" />
+              <span>WhatsApp 2: +92 334 3355356</span>
             </a>
             <button
               onClick={onOpenTriage}
@@ -94,8 +126,16 @@ export const Footer: React.FC<FooterProps> = ({
                 <div>
                   <span className="font-extrabold text-white text-xs block uppercase tracking-wider text-emerald-400">Hospital Location & Address:</span>
                   <span className="text-sm font-bold text-slate-100 block mt-0.5">
-                    Aims Hospital Road Hala Naka Hyderabad Sindh
+                    C9VJ+6V, Aims Hospital Road Hala Naka, Hyderabad, 71000, Pakistan
                   </span>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=C9VJ%2B6V%2C+Aims+Hospital+Road+Hala+Naka%2C+Hyderabad%2C+71000%2C+Pakistan"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-300 hover:underline mt-1"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" /> Open Google Maps (Plus Code: C9VJ+6V)
+                  </a>
                 </div>
               </div>
 
@@ -105,8 +145,8 @@ export const Footer: React.FC<FooterProps> = ({
                   <span><strong className="text-white">Emergency:</strong> 1066 / +92 22 111 246 799</span>
                 </div>
                 <div className="flex items-center gap-2 text-slate-300">
-                  <Mail className="w-4 h-4 text-cyan-400 shrink-0" />
-                  <span>info@aimshospital.org</span>
+                  <MessageSquare className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span><strong className="text-white">WhatsApp:</strong> +92 316 3355355 / +92 334 3355356</span>
                 </div>
               </div>
             </div>
@@ -229,6 +269,14 @@ export const Footer: React.FC<FooterProps> = ({
                   <span>AIMS Care Philanthropy</span>
                 </button>
               </li>
+              {onOpenResearch && (
+                <li>
+                  <button onClick={() => onOpenResearch('overview')} className="hover:text-cyan-300 transition-colors flex items-center gap-1 font-extrabold text-cyan-400 bg-cyan-950/80 px-2.5 py-1 rounded border border-cyan-800">
+                    <Microscope className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>🔬 Research & IRB Division</span>
+                  </button>
+                </li>
+              )}
               <li>
                 <button onClick={() => onNavigateSection('careers')} className="hover:text-cyan-300 transition-colors">
                   Career Opportunities
@@ -243,10 +291,53 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
         </div>
 
+        {/* Patient Accessibility & Assistive Mode Banner */}
+        <div className="mt-12 p-4 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold shrink-0 ${isA11yMode ? 'bg-cyan-500 text-slate-950' : 'bg-slate-800 text-cyan-400'}`}>
+              <Eye className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="font-extrabold text-white text-xs uppercase tracking-wider">Patient Accessibility Mode</span>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isA11yMode ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-800 text-slate-400'}`}>
+                  {isA11yMode ? 'ACTIVE (Large Font & High Contrast)' : 'Disabled'}
+                </span>
+              </div>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Designed for visually impaired patients. Enlarge text size, improve color contrast, and enhance button touch targets.
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={toggleAccessibility}
+            id="footer-accessibility-toggle"
+            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 border ${
+              isA11yMode
+                ? 'bg-cyan-500 text-slate-950 border-cyan-400 hover:bg-cyan-400 shadow-lg shadow-cyan-500/20'
+                : 'bg-slate-800 text-slate-200 border-slate-700 hover:bg-slate-700 hover:text-white'
+            }`}
+          >
+            <ZoomIn className="w-4 h-4" />
+            <span>{isA11yMode ? 'Disable Accessibility Mode' : 'Enable Accessibility Mode'}</span>
+            {isA11yMode && <Check className="w-3.5 h-3.5 text-slate-950 font-black" />}
+          </button>
+        </div>
+
         {/* Bottom Bar & Copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-4">
           <p>© 2026 AIMS Hospital Group. All Rights Reserved. Built to International Healthcare Standards.</p>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+            <button
+              onClick={toggleAccessibility}
+              className={`hover:text-cyan-300 font-bold flex items-center gap-1 ${isA11yMode ? 'text-cyan-400' : 'text-slate-400'}`}
+              title="Toggle Accessibility Mode"
+            >
+              <Eye className="w-3.5 h-3.5" />
+              <span>A11y {isA11yMode ? 'ON' : 'OFF'}</span>
+            </button>
+            <span>•</span>
             <a href="#about" className="hover:text-slate-300">Privacy Policy</a>
             <span>•</span>
             <a href="#about" className="hover:text-slate-300">Terms of Service</a>

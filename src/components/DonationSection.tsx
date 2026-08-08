@@ -122,7 +122,7 @@ export const DonationSection: React.FC = () => {
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Ramesh Kumar"
+                      placeholder="e.g. Tariq Mahmood"
                       value={donorName}
                       onChange={(e) => setDonorName(e.target.value)}
                       className="w-full p-2.5 bg-slate-800 text-white rounded-xl border border-slate-700 focus:outline-none focus:border-cyan-500"

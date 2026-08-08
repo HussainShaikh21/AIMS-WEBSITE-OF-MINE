@@ -1,31 +1,122 @@
 @import "tailwindcss";
 
-@keyframes spin-ring {
-  0% {
+/* Smooth Scrolling & Universal UI Refinements */
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0891b2;
+}
+
+/* Patient Accessibility Mode: Large Font & High Contrast */
+html.accessibility-mode {
+  font-size: 115%; /* Increases base text scale by 15% */
+  filter: contrast(112%);
+}
+
+html.accessibility-mode body {
+  letter-spacing: 0.015em;
+  line-height: 1.65;
+}
+
+html.accessibility-mode button,
+html.accessibility-mode a,
+html.accessibility-mode input,
+html.accessibility-mode select {
+  outline-offset: 3px !important;
+}
+
+html.accessibility-mode .text-slate-400 {
+  color: #cbd5e1 !important; /* Brighter slate for high readability */
+}
+
+html.accessibility-mode .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+/* UI/UX Utility Classes */
+.hover-lift {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px -6px rgba(8, 145, 178, 0.15);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 20px -3px rgba(6, 182, 212, 0.35);
+}
+
+.glow-emerald {
+  box-shadow: 0 0 20px -3px rgba(16, 185, 129, 0.35);
+}
+
+/* Radar & Map Animations */
+@keyframes radar-sweep {
+  from {
     transform: rotate(0deg);
   }
-  100% {
+  to {
     transform: rotate(360deg);
   }
 }
 
-@keyframes hue-shift {
+@keyframes sonar-wave {
   0% {
-    filter: hue-rotate(0deg);
+    transform: scale(0.6);
+    opacity: 0.9;
   }
   100% {
-    filter: hue-rotate(360deg);
+    transform: scale(2.8);
+    opacity: 0;
   }
 }
 
-.animate-spin-ring {
-  animation: spin-ring 3.5s linear infinite;
+@keyframes dash-route {
+  to {
+    stroke-dashoffset: -40;
+  }
 }
 
-.animate-hue-shift {
-  animation: hue-shift 6s linear infinite;
+.animate-radar-sweep {
+  animation: radar-sweep 4s linear infinite;
 }
 
-.animate-rainbow-ring {
-  animation: spin-ring 4s linear infinite, hue-shift 8s linear infinite;
+.animate-sonar-wave {
+  animation: sonar-wave 2.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
+
+.animate-sonar-wave-delayed {
+  animation: sonar-wave 2.5s cubic-bezier(0, 0.2, 0.8, 1) 1.25s infinite;
+}
+
+.animate-dash-route {
+  animation: dash-route 1.5s linear infinite;
+}
+
+
+

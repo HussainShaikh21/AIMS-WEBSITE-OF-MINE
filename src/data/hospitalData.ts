@@ -7,7 +7,9 @@ import {
   NewsArticle,
   Testimonial,
   CareerListing,
-  PatientRecord
+  PatientRecord,
+  Employee,
+  EmployeeDepartment
 } from '../types';
 
 export const DEPARTMENTS_DATA: Department[] = [
@@ -18,7 +20,7 @@ export const DEPARTMENTS_DATA: Department[] = [
     shortDesc: 'Comprehensive care for complex heart conditions, minimally invasive angioplasty, and bypass surgeries.',
     fullDesc: 'The AIMS Institute of Cardiac Sciences is equipped with world-class bi-plane Cath Labs, 3D Echocardiography, and dedicated Cardiac ICUs. Our multidisciplinary cardiac team provides 24/7 emergency angioplasty (PPCI), heart failure management, and robotic-assisted bypass procedures.',
     iconName: 'HeartPulse',
-    headOfDept: 'Dr. Vikramaditya Mehta, DM Cardiology',
+    headOfDept: 'Dr. M. Umer Soomro, DM Cardiology',
     facilities: ['24/7 Primary PCI Cath Lab', 'Hybrid Cardiac OT', '3D TEE Echo', 'Intra-Aortic Balloon Pump (IABP)', 'Cardiac Rehabilitation Wing'],
     commonConditions: ['Coronary Artery Disease', 'Heart Failure', 'Arrhythmia & Atrial Fibrillation', 'Valvular Heart Disease', 'Hypertension & Aortic Aneurysm'],
     procedures: ['Coronary Angiography & Stenting', 'CABG (Bypass Surgery)', 'Pacemaker & ICD Implantation', 'TAVR / TAVI (Valve Replacement)', 'EP Study & Radiofrequency Ablation'],
@@ -32,7 +34,7 @@ export const DEPARTMENTS_DATA: Department[] = [
     shortDesc: 'Advanced stroke management, neuro-trauma, spine surgery, and brain tumor resection.',
     fullDesc: 'AIMS Neurological Institute features state-of-the-art intraoperative MRI navigation, neuro-endoscopy, and dedicated Comprehensive Stroke Units. We specialize in complex skull-base brain surgeries, Parkinson’s Deep Brain Stimulation (DBS), and minimally invasive spine procedures.',
     iconName: 'Brain',
-    headOfDept: 'Dr. Ananya Roy, MCh Neurosurgery',
+    headOfDept: 'Dr. Tariq Mahmood, MCh Neurosurgery',
     facilities: ['Dedicated Stroke ICU', 'Intraoperative MRI Navigation', 'Neuro-Angiography Cath Lab', 'Video EEG Monitoring', 'Robotic Spine Guidance System'],
     commonConditions: ['Acute Ischemic & Hemorrhagic Stroke', 'Brain & Spinal Cord Tumors', 'Epilepsy & Seizures', 'Parkinson’s Disease & Tremors', 'Sciatica & Herniated Disc'],
     procedures: ['Mechanical Thrombectomy for Stroke', 'Micro-Neurosurgical Tumor Resection', 'Deep Brain Stimulation (DBS)', 'Endoscopic Spine Surgery', 'Aneurysm Coiling'],
@@ -46,7 +48,7 @@ export const DEPARTMENTS_DATA: Department[] = [
     shortDesc: 'Robotic knee/hip replacements, complex fracture care, sports medicine, and spine surgery.',
     fullDesc: 'Our Center for Orthopedic Excellence offers AI-guided robotic total knee and hip replacements that ensure sub-millimeter precision, minimal tissue injury, and faster recovery. We treat elite athletes, complex poly-trauma, and degenerative bone disorders.',
     iconName: 'Bone',
-    headOfDept: 'Dr. Rajeshwar Sharma, MS Ortho, FRCS',
+    headOfDept: 'Dr. Shahzad Ali, MS Ortho, FRCS',
     facilities: ['MAKO Robotic Joint Replacement Suite', 'Sports Medicine & Arthroscopy Lab', 'Computer-Navigated OT', 'Advanced Gait Analysis Studio', 'Dedicated Ortho Rehab'],
     commonConditions: ['Osteoarthritis & Joint Degeneration', 'ACL / Meniscus Tear', 'Complex Fractures & Trauma', 'Spinal Stenosis & Spondylolisthesis', 'Bone Tumors'],
     procedures: ['Robotic Total Knee Replacement (TKR)', 'Total Hip Replacement (THR)', 'Arthroscopic Knee/Shoulder Reconstruction', 'Complex Spine Fusion', 'Deformity Correction'],
@@ -60,7 +62,7 @@ export const DEPARTMENTS_DATA: Department[] = [
     shortDesc: 'Integrated Medical, Surgical, and Radiation Oncology with Precision Immunotherapy.',
     fullDesc: 'AIMS Cancer Center delivers holistic oncological care backed by Tumor Boards. Equipped with TrueBeam Linear Accelerator for targeted radiotherapy, Immunotherapy, Bone Marrow Transplant (BMT) unit, and organ-preserving surgical techniques.',
     iconName: 'Activity',
-    headOfDept: 'Dr. Sameer Deshmukh, MD, DM Medical Oncology',
+    headOfDept: 'Dr. Arslan Mehmood Soomro, MD, DM Medical Oncology',
     facilities: ['TrueBeam Radiotherapy Unit', 'HEPA-Filtered BMT Suite', 'Daycare Chemotherapy Lounge', 'PET-CT Diagnostic Imaging', 'Cancer Rehabilitation & Palliative Care'],
     commonConditions: ['Breast & Gynecological Cancer', 'Lung & Head-Neck Cancer', 'Leukemia & Lymphoma', 'GI & Colorectal Cancer', 'Prostate & Kidney Cancer'],
     procedures: ['Targeted Chemotherapy & Immunotherapy', 'Stereotactic Radiosurgery (SRS/SBRT)', 'Onco-Surgical Resection', 'Autologous BMT', 'HIPEC Procedure'],
@@ -74,7 +76,7 @@ export const DEPARTMENTS_DATA: Department[] = [
     shortDesc: 'Super-specialty child care, Level 4 NICU for premature babies, and pediatric surgery.',
     fullDesc: 'Designed to match international pediatric standards, AIMS Children’s Hospital provides compassionate care from birth through adolescence. Our Level 4 NICU/PICU is equipped with high-frequency ventilators, nitric oxide therapy, and pediatric sub-specialties.',
     iconName: 'Baby',
-    headOfDept: 'Dr. Meera Iyer, MD Pediatrics, Fellowship NICU',
+    headOfDept: 'Dr. Bushra Kadir, MD Pediatrics, Fellowship NICU',
     facilities: ['Level IV NICU with ECMO', 'Pediatric Cardiac ICU', 'Child Development & Autism Clinic', 'Pediatric Surgery OT', '24/7 Child Emergency'],
     commonConditions: ['Extreme Prematurity (<28 weeks)', 'Congenital Heart Defects', 'Pediatric Asthma & Pneumonia', 'Childhood Diabetes & Endocrine Disorders', 'Developmental Delays'],
     procedures: ['Surfactant Therapy & Neonatal Ventilation', 'Pediatric Cardiac Repair', 'Pediatric Laparoscopic Surgery', 'Immunization & Allergy Testing', 'Growth Monitoring'],
@@ -88,7 +90,7 @@ export const DEPARTMENTS_DATA: Department[] = [
     shortDesc: 'High-risk pregnancy management, birthing suites, IVF, and laparoscopic gynecology.',
     fullDesc: 'AIMS Women’s Center provides end-to-end obstetric and gynecological care. From luxury birthing suites to fetal medicine, IVF/fertility management, and 3D laparoscopic fibroid/hysterectomy surgeries.',
     iconName: 'Sparkles',
-    headOfDept: 'Dr. Sunita Patel, MD OB-GYN',
+    headOfDept: 'Dr. Salma Parveen, MD OB-GYN',
     facilities: ['Luxury Birthing Suites (LDRP)', 'Fetal Medicine & 4D Ultrasound', 'Advanced IVF & Fertility Lab', 'Laparoscopic Gynaec OT', 'Urogynaecology Clinic'],
     commonConditions: ['High-Risk Pregnancy & Preeclampsia', 'PCOS / PCOD & Infertility', 'Uterine Fibroids & Endometriosis', 'Pelvic Organ Prolapse', 'Gynae Cancers'],
     procedures: ['Painless Normal Delivery & C-Section', '3D Laparoscopic Hysterectomy', 'IVF & ICSI Fertility Treatments', 'Fetal Echocardiography', 'Colposcopy'],
@@ -102,7 +104,7 @@ export const DEPARTMENTS_DATA: Department[] = [
     shortDesc: 'Advanced GI endoscopy, liver transplant, ERCP, and digestive disorder management.',
     fullDesc: 'The Institute of Digestive & Liver Sciences offers comprehensive diagnostic and therapeutic endoscopic procedures (EUS, ERCP, Capsule Endoscopy) and a multi-disciplinary Liver Transplant unit.',
     iconName: 'Stethoscope',
-    headOfDept: 'Dr. Rajiv Menon, DM Gastroenterology',
+    headOfDept: 'Prof. Dr. M. Sadik Memon, FCPS Gastroenterology',
     facilities: ['High-Definition Endoscopy Suites', 'Endoscopic Ultrasound (EUS)', 'SpyGlass Cholangioscopy', 'Dedicated Liver ICU', '24/7 GI Bleed Management'],
     commonConditions: ['Cirrhosis & Liver Failure', 'GERD & Peptic Ulcers', 'Inflammatory Bowel Disease (Crohn’s/UC)', 'Gallstones & Pancreatitis', 'GI Cancers'],
     procedures: ['Diagnostic & Therapeutic Endoscopy', 'ERCP for Bile Duct Stones', 'EUS-Guided Fine Needle Aspiration', 'Liver Transplantation', 'Third Space Endoscopy (POEM)'],
@@ -116,7 +118,7 @@ export const DEPARTMENTS_DATA: Department[] = [
     shortDesc: '24/7 Dialysis, Kidney Transplantation, Laser Kidney Stone Surgery, and Prostate Care.',
     fullDesc: 'AIMS Renal Sciences provides ultra-modern 50-bed hemodialysis unit, ABO-incompatible kidney transplants, holmium laser prostate surgery (HoLEP), and pediatric urology.',
     iconName: 'Droplet',
-    headOfDept: 'Dr. Harshwardhan Joshi, MCh Urology',
+    headOfDept: 'Dr. Kashif Aziz Siddiqi, MCh Urology',
     facilities: ['50-Bed Dialysis Lounge with CRRT', 'Holmium Laser Urology Suite', 'Kidney Transplant ICU', 'Rigid & Flexible Ureteroscopy', 'Urodynamics Lab'],
     commonConditions: ['Chronic Kidney Disease (CKD)', 'Kidney Stones (Renal Calculi)', 'Prostate Enlargement (BPH)', 'Bladder & Kidney Cancer', 'Urinary Tract Infections'],
     procedures: ['Living & Deceased Donor Kidney Transplant', 'Laser Stone Lithotripsy (RIRS/PCNL)', 'Holmium Laser Enucleation of Prostate (HoLEP)', 'Hemodialysis & Peritoneal Dialysis', 'Laparoscopic Nephrectomy'],
@@ -130,7 +132,7 @@ export const DEPARTMENTS_DATA: Department[] = [
     shortDesc: '128-Slice Cardiac CT Scan, 3T Silent MRI, Digital X-Ray, and Interventional Radiology.',
     fullDesc: 'Equipped with sub-second ultra-fast 128-slice CT scan, high-resolution 3 Tesla MRI with neuro-functional imaging, digital mammography, and vascular interventional radiology suites.',
     iconName: 'Scan',
-    headOfDept: 'Dr. Siddharth Kapoor, MD Radiology',
+    headOfDept: 'Dr. Syed Azhar Shah, MD Radiology',
     facilities: ['128-Slice Ultra Fast CT Scanner', '3 Tesla Wide-Bore Silent MRI', 'Digital Flat-Panel Mammography', 'Color Doppler & 4D Ultrasound', 'Interventional Angiography Suite'],
     commonConditions: ['Coronary Calcium & Angio Screening', 'Acute Brain Ischemia / Stroke', 'Musculoskeletal Injuries', 'Internal Organ Vascular Bleeds', 'Oncology Staging'],
     procedures: ['Non-Invasive Cardiac CT Angiography', 'Whole Body MRI & Multiparametric Prostate MRI', 'CT-Guided Biopsy & Drainage', 'Vascular Embolization', 'Digital Mammography'],
@@ -144,7 +146,7 @@ export const DEPARTMENTS_DATA: Department[] = [
     shortDesc: '24/7 Immediate Resuscitation, Cardiac Shock Rooms, Dedicated Trauma OTs and Ambulances.',
     fullDesc: 'AIMS Emergency Care Center operates round-the-clock with dedicated Triage bays, Trauma Surgeons, Cardiac Resuscitation specialists, Advanced Life Support (ALS) Ambulances, and immediate CT/MRI priority imaging.',
     iconName: 'ShieldAlert',
-    headOfDept: 'Dr. Arvind Nambiar, MD Emergency Medicine',
+    headOfDept: 'Dr. A Hafeez Soomro, MD Emergency Medicine',
     facilities: ['20-Bed Resuscitation & Triage Zone', 'Dedicated Emergency OT & Cath Lab Link', 'Fleet of ALS Mobile ICUs', 'Helipad for Air Ambulance', 'Poison & Toxicology Unit'],
     commonConditions: ['Polytrauma & Road Traffic Accidents', 'Acute Heart Attack (STEMI)', 'Acute Respiratory Distress', 'Severe Stroke & Coma', 'Burn Injuries & Poisoning'],
     procedures: ['Cardiopulmonary Resuscitation (CPR)', 'Emergency Airway Intubation', 'Trauma Resuscitation & Damage Control Surgery', 'Emergency Thrombolysis', 'Chest Tube Insertion'],
@@ -256,7 +258,7 @@ export const DOCTORS_DATA: Doctor[] = [
   {
     id: 'doc-aims-1',
     name: 'Prof. Dr. M. Sadik Memon',
-    title: 'Consultant Gastroenterologist',
+    title: 'Professor & Consultant Gastroenterologist',
     departmentId: 'gastroenterology',
     departmentName: 'Gastroenterology & Hepatology',
     qualifications: 'MBBS, FCPS, Consultant Gastroenterologist',
@@ -269,7 +271,7 @@ export const DOCTORS_DATA: Doctor[] = [
       days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
       timeSlots: ['09:00 AM - 05:00 PM']
     },
-    bio: 'Professor and Consultant Gastroenterologist specializing in advanced endoscopies, liver disorders, and complex GI tract diseases.',
+    bio: 'Professor and Consultant Gastroenterologist at AIMS Hospital specializing in advanced endoscopies, liver disorders, and complex GI tract diseases.',
     specializations: ['Advanced Endoscopy', 'Hepatology', 'GI Bleed Management', 'Liver Cirrhosis'],
     languages: ['Sindhi', 'Urdu', 'English'],
     location: 'AIMS Hospital Hyderabad - OPD 01',
@@ -1716,12 +1718,12 @@ export const HOSPITAL_BRANCHES: HospitalBranch[] = [
     id: 'branch-main',
     name: 'AIMS Main Super Specialty Hospital',
     type: 'Main Campus',
-    address: 'Aims Hospital Road Hala Naka Hyderabad Sindh',
+    address: 'C9VJ+6V, Aims Hospital Road Hala Naka, Hyderabad, 71000, Pakistan',
     city: 'Hyderabad, Sindh',
     emergencyNumber: '1066 / +92 22 111 246 799',
     opdNumber: '+92 22 2100900',
     email: 'info@aimshospital.org',
-    googleMapsUrl: 'https://maps.google.com',
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=C9VJ%2B6V%2C+Aims+Hospital+Road+Hala+Naka%2C+Hyderabad%2C+71000%2C+Pakistan',
     lat: 25.3960,
     lng: 68.3578,
     icuBedsAvailable: 28,
@@ -1732,12 +1734,12 @@ export const HOSPITAL_BRANCHES: HospitalBranch[] = [
     id: 'branch-neuro-heart',
     name: 'AIMS Cardiac & Neuro Sciences Center',
     type: 'Super Specialty Hub',
-    address: 'Aims Hospital Road Hala Naka Hyderabad Sindh',
+    address: 'C9VJ+6V, Aims Hospital Road Hala Naka, Hyderabad, 71000, Pakistan',
     city: 'Hyderabad, Sindh',
     emergencyNumber: '1066 / +92 22 111 246 788',
     opdNumber: '+92 22 2100910',
     email: 'heart-neuro@aimshospital.org',
-    googleMapsUrl: 'https://maps.google.com',
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=C9VJ%2B6V%2C+Aims+Hospital+Road+Hala+Naka%2C+Hyderabad%2C+71000%2C+Pakistan',
     lat: 25.3970,
     lng: 68.3585,
     icuBedsAvailable: 15,
@@ -1748,14 +1750,14 @@ export const HOSPITAL_BRANCHES: HospitalBranch[] = [
     id: 'branch-women-child',
     name: 'AIMS Women & Children Specialty Center',
     type: 'Children & Women',
-    address: '88 Rose Park Drive, Near Green Avenue',
-    city: 'South Suburbs',
-    emergencyNumber: '+91 (022) 1800-2467-77',
-    opdNumber: '+91 (022) 4588-9200',
+    address: 'Autobahn Road, Unit 7 Latifabad, Hyderabad, 71000, Pakistan',
+    city: 'Hyderabad, Sindh',
+    emergencyNumber: '1066 / +92 22 111 246 777',
+    opdNumber: '+92 22 2100920',
     email: 'womenchild@aimshospital.org',
-    googleMapsUrl: 'https://maps.google.com',
-    lat: 18.9690,
-    lng: 72.8210,
+    googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Autobahn+Road+Latifabad+Hyderabad+Pakistan',
+    lat: 25.3680,
+    lng: 68.3610,
     icuBedsAvailable: 12,
     is24x7Emergency: true,
     imagingFacilities: ['4D Obstetric Ultrasound', 'Fetal Echo', 'Digital Mammography']
@@ -1768,7 +1770,7 @@ export const NEWS_ARTICLES: NewsArticle[] = [
     title: 'AIMS Hospital Introduces Next-Gen 128-Slice Cardiac CT Angiography',
     category: 'Medical Breakthrough',
     date: 'August 1, 2026',
-    author: 'Dr. Vikramaditya Mehta',
+    author: 'Dr. M. Umer Soomro',
     authorRole: 'Chairman & Chief Cardiologist',
     readTime: '4 min read',
     summary: 'AIMS Hospital announces the commissioning of ultra-fast 128-slice CT scanner enabling non-invasive 5-second heart screening with 60% less radiation.',
@@ -1781,7 +1783,7 @@ export const NEWS_ARTICLES: NewsArticle[] = [
     title: 'AI & Robotic Surgery Milestones: 1,000 Robotic Joint Replacements Completed',
     category: 'Hospital News',
     date: 'July 18, 2026',
-    author: 'Dr. Rajeshwar Sharma',
+    author: 'Dr. Shahzad Ali',
     authorRole: 'Head of Orthopedics',
     readTime: '3 min read',
     summary: 'Our orthopedic surgical team achieves landmark milestone with 100% success rate and zero infection in MAKO robotic knee and hip surgeries.',
@@ -1794,7 +1796,7 @@ export const NEWS_ARTICLES: NewsArticle[] = [
     title: 'Understanding Stroke Symptoms: The FAST Rule That Saves Brain Cells',
     category: 'Health Guide',
     date: 'July 05, 2026',
-    author: 'Dr. Ananya Roy',
+    author: 'Dr. Tariq Mahmood',
     authorRole: 'Director of Neurosurgery',
     readTime: '5 min read',
     summary: 'Every second counts during acute ischemic stroke. Learn how to recognize Face drooping, Arm weakness, Speech difficulty, and Time to call AIMS Emergency.',
@@ -1807,41 +1809,41 @@ export const NEWS_ARTICLES: NewsArticle[] = [
 export const TESTIMONIALS_DATA: Testimonial[] = [
   {
     id: 'test-1',
-    patientName: 'Sanjay Rastogi',
+    patientName: 'Sohail Ahmed',
     age: 54,
     treatment: 'Emergency Primary PCI & Stenting',
     departmentName: 'Cardiology',
-    doctorName: 'Dr. Vikramaditya Mehta',
+    doctorName: 'Dr. M. Umer Soomro',
     rating: 5,
-    reviewText: 'I suffered severe chest pain at 2 AM. The AIMS Emergency team responded immediately. Within 25 minutes of arrival, Dr. Mehta performed primary angioplasty and saved my heart. The care in Cardiac ICU was outstanding!',
+    reviewText: 'I suffered severe chest pain at 2 AM. The AIMS Emergency team responded immediately. Within 25 minutes of arrival, Dr. Soomro performed primary angioplasty and saved my heart. The care in Cardiac ICU was outstanding!',
     date: 'June 2026',
-    location: 'Central City',
+    location: 'Hyderabad',
     isVerifiedPatient: true
   },
   {
     id: 'test-2',
-    patientName: 'Priya Mukherjee',
+    patientName: 'Parveen Bibi',
     age: 62,
     treatment: 'Robotic Total Knee Replacement',
     departmentName: 'Orthopedics',
-    doctorName: 'Dr. Rajeshwar Sharma',
+    doctorName: 'Dr. Shahzad Ali',
     rating: 5,
-    reviewText: 'I could barely walk due to severe osteoarthritis. Dr. Sharma performed robotic knee surgery on both my legs. I was walking upstairs without pain on day 3. God bless the AIMS team!',
+    reviewText: 'I could barely walk due to severe osteoarthritis. Dr. Shahzad performed robotic knee surgery on both my legs. I was walking upstairs without pain on day 3. God bless the AIMS team!',
     date: 'May 2026',
-    location: 'North Metro',
+    location: 'Karachi',
     isVerifiedPatient: true
   },
   {
     id: 'test-3',
-    patientName: 'Rohit & Neha Verma',
+    patientName: 'Kamran & Sadia Khan',
     age: 31,
     treatment: 'High-Risk Premature Delivery & NICU Care',
     departmentName: 'Pediatrics & NICU',
-    doctorName: 'Dr. Meera Iyer & Dr. Sunita Patel',
+    doctorName: 'Dr. Bushra Kadir & Dr. Salma Parveen',
     rating: 5,
-    reviewText: 'Our baby boy was born at 29 weeks weighing just 1.1 kg. Dr. Meera Iyer and her NICU team nursed him for 45 days with immense love and medical perfection. Today our son is thriving and healthy.',
+    reviewText: 'Our baby boy was born at 29 weeks weighing just 1.1 kg. Dr. Bushra Kadir and her NICU team nursed him for 45 days with immense love and medical perfection. Today our son is thriving and healthy.',
     date: 'April 2026',
-    location: 'South Suburbs',
+    location: 'Sukkur',
     isVerifiedPatient: true
   }
 ];
@@ -1899,24 +1901,24 @@ export const CAREERS_DATA: CareerListing[] = [
 export const SAMPLE_PATIENT_RECORDS: PatientRecord[] = [
   {
     patientId: 'AIMS-P-99204',
-    name: 'Rajesh Malhotra',
-    phone: '+91 98201 45990',
-    email: 'rajesh.malhotra@example.com',
+    name: 'Tariq Mahmood',
+    phone: '+92 300 1234567',
+    email: 'tariq.mahmood@example.com',
     age: 48,
     gender: 'Male',
     bloodGroup: 'O Positive',
     appointments: [
       {
         id: 'APT-10029',
-        patientName: 'Rajesh Malhotra',
-        patientPhone: '+91 98201 45990',
-        patientEmail: 'rajesh.malhotra@example.com',
+        patientName: 'Tariq Mahmood',
+        patientPhone: '+92 300 1234567',
+        patientEmail: 'tariq.mahmood@example.com',
         patientAge: 48,
         patientGender: 'Male',
         departmentId: 'cardiology',
         departmentName: 'Cardiology & Cardiac Surgery',
         doctorId: 'doc-1',
-        doctorName: 'Dr. Vikramaditya Mehta',
+        doctorName: 'Dr. M. Umer Soomro',
         appointmentDate: '2026-08-05',
         appointmentTime: '10:30 AM',
         symptoms: 'Follow-up post lipid test & stress evaluation',
@@ -1934,7 +1936,7 @@ export const SAMPLE_PATIENT_RECORDS: PatientRecord[] = [
         date: '2026-07-25',
         category: 'Radiology / CT Scan',
         status: 'Ready',
-        doctorName: 'Dr. Siddharth Kapoor',
+        doctorName: 'Dr. Shahzad Ali',
         summary: 'Normal coronary origins. Calcium score = 12 (Low risk). No hemodynamically significant stenosis in LAD, LCX, or RCA.',
         keyValues: [
           { testName: 'Agatston Calcium Score', result: '12', normalRange: '< 100', status: 'Normal' },
@@ -1948,7 +1950,7 @@ export const SAMPLE_PATIENT_RECORDS: PatientRecord[] = [
         date: '2026-07-24',
         category: 'Pathology Lab',
         status: 'Ready',
-        doctorName: 'Dr. Sameer Deshmukh',
+        doctorName: 'Dr. Tariq Mahmood',
         summary: 'Serum Cholesterol slightly elevated. Fasting blood sugar within normal limits.',
         keyValues: [
           { testName: 'Total Cholesterol', result: '215 mg/dL', normalRange: '< 200 mg/dL', status: 'High' },
@@ -1962,7 +1964,7 @@ export const SAMPLE_PATIENT_RECORDS: PatientRecord[] = [
       {
         id: 'RX-5002',
         date: '2026-07-25',
-        doctorName: 'Dr. Vikramaditya Mehta',
+        doctorName: 'Dr. M. Umer Soomro',
         department: 'Cardiology',
         diagnosis: 'Mild Hyperlipidemia with Low Coronary Calcium',
         medications: [
@@ -1998,3 +2000,689 @@ export function saveStoredDoctors(doctors: Doctor[]) {
     console.error('Error saving custom doctors:', e);
   }
 }
+
+export function getStoredDepartments(): Department[] {
+  try {
+    const saved = localStorage.getItem('aims_custom_departments');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.error('Error reading custom departments:', e);
+  }
+  return DEPARTMENTS_DATA;
+}
+
+export function saveStoredDepartments(departments: Department[]) {
+  try {
+    localStorage.setItem('aims_custom_departments', JSON.stringify(departments));
+    window.dispatchEvent(new Event('aims_departments_updated'));
+  } catch (e) {
+    console.error('Error saving custom departments:', e);
+  }
+}
+
+export function getStoredBranches(): HospitalBranch[] {
+  try {
+    const saved = localStorage.getItem('aims_custom_branches');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.error('Error reading custom branches:', e);
+  }
+  return HOSPITAL_BRANCHES;
+}
+
+export function saveStoredBranches(branches: HospitalBranch[]) {
+  try {
+    localStorage.setItem('aims_custom_branches', JSON.stringify(branches));
+    window.dispatchEvent(new Event('aims_branches_updated'));
+  } catch (e) {
+    console.error('Error saving custom branches:', e);
+  }
+}
+
+export function getStoredPackages(): HealthPackage[] {
+  try {
+    const saved = localStorage.getItem('aims_custom_packages');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.error('Error reading custom packages:', e);
+  }
+  return HEALTH_PACKAGES;
+}
+
+export function saveStoredPackages(packages: HealthPackage[]) {
+  try {
+    localStorage.setItem('aims_custom_packages', JSON.stringify(packages));
+    window.dispatchEvent(new Event('aims_packages_updated'));
+  } catch (e) {
+    console.error('Error saving custom packages:', e);
+  }
+}
+
+export function getStoredNews(): NewsArticle[] {
+  try {
+    const saved = localStorage.getItem('aims_custom_news');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.error('Error reading custom news:', e);
+  }
+  return NEWS_ARTICLES;
+}
+
+export function saveStoredNews(news: NewsArticle[]) {
+  try {
+    localStorage.setItem('aims_custom_news', JSON.stringify(news));
+    window.dispatchEvent(new Event('aims_news_updated'));
+  } catch (e) {
+    console.error('Error saving custom news:', e);
+  }
+}
+
+export const DEFAULT_SITE_SETTINGS = {
+  announcementBanner: '🚨 24/7 Emergency & Level-1 Trauma Center Active | Dedicated 128-Slice CT Scan & Cardiac Cath Lab Operational in Hyderabad & Karachi',
+  showAnnouncementBanner: true,
+  emergencyHotline: '0300-1234567',
+  opdHelpline: '022-2101100',
+  whatsappNumber: '+923001234567',
+  hospitalName: 'AIMS Hospital',
+  hospitalTagline: 'Advance International Medical Sciences',
+  heroHeadline: 'Premier Healthcare Excellence & Precision Medicine',
+  heroSubheadline: 'World-Class Multi-Specialty Care, 128-Slice CT Imaging, Level-1 Trauma & Dedicated ICUs'
+};
+
+export function getStoredSiteSettings() {
+  try {
+    const saved = localStorage.getItem('aims_site_settings');
+    if (saved) {
+      return { ...DEFAULT_SITE_SETTINGS, ...JSON.parse(saved) };
+    }
+  } catch (e) {
+    console.error('Error reading site settings:', e);
+  }
+  return DEFAULT_SITE_SETTINGS;
+}
+
+export function saveStoredSiteSettings(settings: typeof DEFAULT_SITE_SETTINGS) {
+  try {
+    localStorage.setItem('aims_site_settings', JSON.stringify(settings));
+    window.dispatchEvent(new Event('aims_settings_updated'));
+  } catch (e) {
+    console.error('Error saving site settings:', e);
+  }
+}
+
+export const DEFAULT_EMPLOYEE_DEPARTMENTS: EmployeeDepartment[] = [
+  {
+    id: 'dept-it',
+    name: 'IT Department',
+    iconName: 'Monitor',
+    description: 'Responsible for hospital/institute information technology, software, networking, clinical databases, systems, technical support, and digital health services.',
+    headOfDepartment: 'Engr. Faisal Memon',
+    contactEmail: 'it@aimshospital.org',
+    contactExtension: 'Ext. 400',
+    isActive: true
+  },
+  {
+    id: 'dept-hr',
+    name: 'Human Resources',
+    iconName: 'Users',
+    description: 'Manages staff recruitment, employee relations, payroll support, medical staff credentials, training, and personnel administration.',
+    headOfDepartment: 'Syed Farhan Shah',
+    contactEmail: 'hr@aimshospital.org',
+    contactExtension: 'Ext. 100',
+    isActive: true
+  },
+  {
+    id: 'dept-finance',
+    name: 'Finance & Accounts',
+    iconName: 'Calculator',
+    description: 'Oversees financial operations, patient billing, corporate insurance claims, auditing, vendor accounts, and budget management.',
+    headOfDepartment: 'Tariq Ahmed CPA',
+    contactEmail: 'finance@aimshospital.org',
+    contactExtension: 'Ext. 110',
+    isActive: true
+  },
+  {
+    id: 'dept-admin',
+    name: 'Administration',
+    iconName: 'Building2',
+    description: 'Handles day-to-day hospital operations, executive management, facility governance, regulatory compliance, and administrative oversight.',
+    headOfDepartment: 'Maj. (R) Asad Raza',
+    contactEmail: 'admin@aimshospital.org',
+    contactExtension: 'Ext. 101',
+    isActive: true
+  },
+  {
+    id: 'dept-medical',
+    name: 'Medical',
+    iconName: 'Stethoscope',
+    description: 'Coordinates senior clinical consultants, outpatient departments (OPD), clinical specialty suites, and physician services.',
+    headOfDepartment: 'Dr. M. Umer Soomro',
+    contactEmail: 'medical@aimshospital.org',
+    contactExtension: 'Ext. 200',
+    isActive: true
+  },
+  {
+    id: 'dept-nursing',
+    name: 'Nursing',
+    iconName: 'Heart',
+    description: 'Provides 24/7 compassionate inpatient nursing care, ICU & CCU monitoring, operation theater assisting, and patient safety.',
+    headOfDepartment: 'Sr. Rehana Parveen',
+    contactEmail: 'nursing@aimshospital.org',
+    contactExtension: 'Ext. 300',
+    isActive: true
+  },
+  {
+    id: 'dept-lab',
+    name: 'Laboratory',
+    iconName: 'Microscope',
+    description: 'Delivers high-precision diagnostic pathology, blood banking, clinical biochemistry, microbiology, and molecular diagnostics.',
+    headOfDepartment: 'Dr. Noman Shaikh',
+    contactEmail: 'lab@aimshospital.org',
+    contactExtension: 'Ext. 500',
+    isActive: true
+  },
+  {
+    id: 'dept-radiology',
+    name: 'Radiology',
+    iconName: 'Scan',
+    description: 'Operates 128-Slice CT Scan, MRI, 4D Ultrasound, Digital X-Ray, Mammography, and fluoroscopy imaging.',
+    headOfDepartment: 'Dr. Sarfaraz Junejo',
+    contactEmail: 'radiology@aimshospital.org',
+    contactExtension: 'Ext. 550',
+    isActive: true
+  },
+  {
+    id: 'dept-pharmacy',
+    name: 'Pharmacy',
+    iconName: 'Pill',
+    description: 'Provides 24/7 inpatient & outpatient pharmaceutical dispensing, medicine inventory, and medication counseling.',
+    headOfDepartment: 'Pharm. Zeeshan Ali',
+    contactEmail: 'pharmacy@aimshospital.org',
+    contactExtension: 'Ext. 600',
+    isActive: true
+  },
+  {
+    id: 'dept-reception',
+    name: 'Reception',
+    iconName: 'PhoneCall',
+    description: 'Front desk operations, patient inquiries, appointment registration, visitor direction, and helpline assistance.',
+    headOfDepartment: 'Maryam Khan',
+    contactEmail: 'reception@aimshospital.org',
+    contactExtension: 'Ext. 102',
+    isActive: true
+  },
+  {
+    id: 'dept-security',
+    name: 'Security',
+    iconName: 'Shield',
+    description: 'Maintains 24/7 premise safety, CCTV surveillance, emergency access protocols, and visitor crowd management.',
+    headOfDepartment: 'Capt. (R) Imran Malik',
+    contactEmail: 'security@aimshospital.org',
+    contactExtension: 'Ext. 105',
+    isActive: true
+  },
+  {
+    id: 'dept-maintenance',
+    name: 'Maintenance',
+    iconName: 'Wrench',
+    description: 'Oversees biomedical equipment upkeep, HVAC cooling, electrical backup generators, water supply, and facility maintenance.',
+    headOfDepartment: 'Engr. Bilal Hassan',
+    contactEmail: 'engineering@aimshospital.org',
+    contactExtension: 'Ext. 108',
+    isActive: true
+  },
+  {
+    id: 'dept-marketing',
+    name: 'Marketing',
+    iconName: 'Megaphone',
+    description: 'Coordinates health awareness campaigns, community medical camps, public relations, and institutional communication.',
+    headOfDepartment: 'Sara Soomro',
+    contactEmail: 'media@aimshospital.org',
+    contactExtension: 'Ext. 115',
+    isActive: true
+  },
+  {
+    id: 'dept-management',
+    name: 'Management',
+    iconName: 'Award',
+    description: 'Executive governance board providing strategic leadership, hospital expansion, quality assurance, and institutional policy.',
+    headOfDepartment: 'Prof. Dr. A. G. Soomro',
+    contactEmail: 'executive@aimshospital.org',
+    contactExtension: 'Ext. 100',
+    isActive: true
+  }
+];
+
+export const INITIAL_EMPLOYEES: Employee[] = [
+  {
+    id: 'emp-101',
+    employeeId: 'EMP-IT-101',
+    fullName: 'Hussain Shaikh',
+    designation: 'IT Specialist',
+    departmentId: 'dept-it',
+    departmentName: 'IT Department',
+    highestQualification: 'ADCS Degree',
+    experienceYears: 5,
+    imageUrl: '',
+    employeeType: 'Full Time',
+    joiningDate: '2021-03-15',
+    status: 'Active',
+    education: [
+      {
+        id: 'edu-1',
+        degree: 'ADCS Degree',
+        fieldOfStudy: 'Associate Degree in Computer Science',
+        institution: 'University of Sindh / City College',
+        year: '2022'
+      },
+      {
+        id: 'edu-dit',
+        degree: 'DIT (Diploma in Information Technology)',
+        fieldOfStudy: 'Information Technology & Software Systems',
+        institution: 'Sindh Board of Technical Education (SBTE)',
+        year: '2021'
+      },
+      {
+        id: 'edu-cit',
+        degree: 'CIT (Certificate in Information Technology)',
+        fieldOfStudy: 'Computer Applications & Networking',
+        institution: 'Vocational & Technical Training Institute',
+        year: '2020'
+      },
+      {
+        id: 'edu-2',
+        degree: 'Intermediate (FSc Pre-Engineering)',
+        fieldOfStudy: 'Computer Science & Mathematics',
+        institution: 'BISE Hyderabad',
+        year: '2019'
+      }
+    ],
+    certifications: [
+      'UI/UX Design (Figma, Adobe XD, Responsive Interface Prototyping)',
+      'Graphics Designing (Photoshop, Illustrator, Branding & Visual Design)',
+      'CIT & DIT Certified',
+      'WordPress Development (CMS Customization, E-commerce, Speed Optimization)',
+      'Video Editing (Premiere Pro, After Effects, Motion Graphics)',
+      'Digital Marketing & SEO (Content Strategy, Social Media & Search Optimization)',
+      'Web Development (HTML5, CSS3, JavaScript, React, PHP & Full-Stack Solutions)',
+      'Hospital Information Systems (HMIS) & Network Administration Support'
+    ],
+    skills: [
+      'UI/UX Design (Figma, Adobe XD)',
+      'Graphics Designing (Photoshop, Illustrator)',
+      'CIT & DIT Certified',
+      'WordPress Development',
+      'Video Editing (Premiere Pro, After Effects)',
+      'Digital Marketing & SEO',
+      'Web Development (React, JS, PHP)',
+      'Hospital Information Systems (HMIS) & Network Administration Support'
+    ],
+    responsibilities: [
+      'Leads hospital digital media, web development, and UI/UX design for online portals and patient services.',
+      'Manages WordPress content management systems, digital marketing campaigns, and video production.',
+      'Oversees Hospital Information Systems (HMIS), network infrastructure, CIT/DIT technical support, and data security.',
+      'Provides 24/7 IT specialized troubleshooting across clinical and administrative units.'
+    ],
+    officialEmail: 'hussain.shaikh@aimshospital.org',
+    officialPhone: '+92 22 2101100 Ext. 401',
+    officeLocation: 'Main Building, 2nd Floor, IT Control Room 204',
+    biography: 'Hussain Shaikh is a versatile IT Specialist at AIMS Hospital. Holding an ADCS Degree along with DIT and CIT qualifications, Hussain possesses comprehensive expertise across UI/UX Design, Graphics Designing, WordPress Development, Web Development, Video Editing, and Digital Marketing. He manages both core hospital server infrastructure and modern digital growth initiatives.'
+  },
+  {
+    id: 'emp-101b',
+    employeeId: 'EMP-IT-102',
+    fullName: 'Muhammad Saim',
+    designation: 'IT Assistant',
+    departmentId: 'dept-it',
+    departmentName: 'IT Department',
+    highestQualification: 'Certificate in Graphics Designing',
+    experienceYears: 2,
+    imageUrl: '',
+    employeeType: 'Full Time',
+    joiningDate: '2023-01-10',
+    status: 'Active',
+    education: [
+      {
+        id: 'edu-saim-1',
+        degree: 'Certificate in Graphics Designing',
+        fieldOfStudy: 'Graphics & Visual Arts',
+        institution: 'Vocational Training Institute',
+        year: '2022'
+      },
+      {
+        id: 'edu-saim-2',
+        degree: 'Intermediate in Computer Science (ICS)',
+        fieldOfStudy: 'Computer Science',
+        institution: 'BISE Hyderabad',
+        year: '2021'
+      }
+    ],
+    certifications: [
+      'Certificate in Graphics Designing',
+      'Adobe Photoshop & Illustrator Professional',
+      'IT Support & Hardware Fundamentals'
+    ],
+    skills: [
+      'Graphics Designing',
+      'Visual Asset Creation',
+      'IT Assistance & User Support',
+      'Hardware & Software Troubleshooting',
+      'Digital Media Design'
+    ],
+    responsibilities: [
+      'Assists the IT team in graphics designing for hospital posters, web banners, and digital health campaigns.',
+      'Provides daily IT helpdesk assistance to hospital staff for workstation setup and software troubleshooting.',
+      'Maintains visual documentation and branding assets across hospital departments.'
+    ],
+    officialEmail: 'muhammad.saim@aimshospital.org',
+    officialPhone: '+92 22 2101100 Ext. 402',
+    officeLocation: 'Main Building, 2nd Floor, IT Control Room 204',
+    biography: 'Muhammad Saim is an IT Assistant in the IT Department at AIMS Hospital. Certified in Graphics Designing, he specializes in visual creative design, digital assets, and providing prompt technical IT assistance across all hospital divisions.'
+  },
+  {
+    id: 'emp-102',
+    employeeId: 'EMP-HR-201',
+    fullName: 'Syed Farhan Shah',
+    designation: 'Human Resources Manager',
+    departmentId: 'dept-hr',
+    departmentName: 'Human Resources',
+    highestQualification: 'MS in Human Resource Management',
+    experienceYears: 8,
+    imageUrl: '',
+    employeeType: 'Full Time',
+    joiningDate: '2019-06-10',
+    status: 'Active',
+    education: [
+      {
+        id: 'edu-hr-1',
+        degree: 'MS in HRM',
+        fieldOfStudy: 'Human Resource Management',
+        institution: 'Institute of Business Administration (IBA)',
+        year: '2018'
+      },
+      {
+        id: 'edu-hr-2',
+        degree: 'BBA (Hons)',
+        fieldOfStudy: 'Management & Marketing',
+        institution: 'University of Karachi',
+        year: '2015'
+      }
+    ],
+    certifications: [
+      'SHRM Certified Professional (SHRM-CP)',
+      'Healthcare Staff Credentials Audit Specialist'
+    ],
+    skills: [
+      'Healthcare Recruitment',
+      'PMDC Doctor Credentialing',
+      'Performance Management',
+      'Employee Welfare & Policy Development'
+    ],
+    responsibilities: [
+      'Manages recruitment and onboarding for medical doctors, nurses, and administrative personnel.',
+      'Verifies doctor credentials with PMDC and regulatory boards.',
+      'Conducts staff welfare initiatives and monthly performance reviews.'
+    ],
+    officialEmail: 'farhan.shah@aimshospital.org',
+    officialPhone: '+92 22 2101100 Ext. 100',
+    officeLocation: 'Admin Block, 1st Floor, HR Suite 102',
+    biography: 'Syed Farhan Shah oversees the Human Resource department at AIMS, ensuring compliance with medical board standards, staff satisfaction, and efficient hospital talent management.'
+  },
+  {
+    id: 'emp-103',
+    employeeId: 'EMP-NUR-301',
+    fullName: 'Sr. Rehana Parveen',
+    designation: 'Chief Nursing Superintendent',
+    departmentId: 'dept-nursing',
+    departmentName: 'Nursing',
+    highestQualification: 'MSc Nursing (Critical Care)',
+    experienceYears: 12,
+    imageUrl: '',
+    employeeType: 'Full Time',
+    joiningDate: '2016-01-20',
+    status: 'Active',
+    education: [
+      {
+        id: 'edu-nur-1',
+        degree: 'MSc Nursing',
+        fieldOfStudy: 'Critical Care & ICU Nursing',
+        institution: 'Aga Khan University School of Nursing',
+        year: '2015'
+      },
+      {
+        id: 'edu-nur-2',
+        degree: 'BSc Nursing',
+        fieldOfStudy: 'General Nursing',
+        institution: 'LUMHS Jamshoro',
+        year: '2011'
+      }
+    ],
+    certifications: [
+      'Advanced Cardiac Life Support (ACLS)',
+      'Certified Infection Control Practitioner (CICP)'
+    ],
+    skills: [
+      'ICU & CCU Patient Management',
+      'Infection Prevention Control',
+      'Staff Roster Management',
+      'Emergency Resuscitation Protocol'
+    ],
+    responsibilities: [
+      'Directs the 24/7 nursing workforce across 125 inpatient beds, ICUs, and emergency wards.',
+      'Monitors strict adherence to aseptic techniques and infection control standards.',
+      'Coordinates nursing continuing education workshops and patient care audits.'
+    ],
+    officialEmail: 'rehana.parveen@aimshospital.org',
+    officialPhone: '+92 22 2101100 Ext. 300',
+    officeLocation: 'Inpatient Tower, 2nd Floor, Nursing Office',
+    biography: 'Sr. Rehana Parveen leads the nursing staff at AIMS with over 12 years of clinical excellence in critical care nursing, patient advocacy, and bedside protocols.'
+  },
+  {
+    id: 'emp-104',
+    employeeId: 'EMP-PHARM-401',
+    fullName: 'Pharm. Zeeshan Ali',
+    designation: 'Head Pharmacist',
+    departmentId: 'dept-pharmacy',
+    departmentName: 'Pharmacy',
+    highestQualification: 'Pharm.D (Doctor of Pharmacy)',
+    experienceYears: 7,
+    imageUrl: '',
+    employeeType: 'Full Time',
+    joiningDate: '2020-09-01',
+    status: 'Active',
+    education: [
+      {
+        id: 'edu-pharm-1',
+        degree: 'Pharm.D',
+        fieldOfStudy: 'Doctor of Pharmacy',
+        institution: 'Faculty of Pharmacy, University of Sindh',
+        year: '2018'
+      }
+    ],
+    certifications: [
+      'Hospital Pharmacy Administration',
+      'Pharmacovigilance & Drug Interaction Specialist'
+    ],
+    skills: [
+      'Clinical Pharmacy Management',
+      'Cold-Chain Vaccine Preservation',
+      'Inpatient Dose Reconciliation',
+      'Pharmaceutical Inventory Control'
+    ],
+    responsibilities: [
+      'Oversees 24/7 medicine dispensing for OPD, IPD, and emergency departments.',
+      'Maintains strict cold-chain refrigeration for vaccines and biological products.',
+      'Verifies prescription dosages and conducts drug interaction checks.'
+    ],
+    officialEmail: 'zeeshan.ali@aimshospital.org',
+    officialPhone: '+92 22 2101100 Ext. 600',
+    officeLocation: 'Ground Floor, Central Pharmacy Complex',
+    biography: 'Pharm. Zeeshan Ali leads the AIMS Pharmacy department, ensuring 100% genuine medications, fast dispensing, and precise pharmaceutical care.'
+  },
+  {
+    id: 'emp-105',
+    employeeId: 'EMP-REC-501',
+    fullName: 'Maryam Khan',
+    designation: 'Front Desk & Reception Supervisor',
+    departmentId: 'dept-reception',
+    departmentName: 'Reception',
+    highestQualification: 'BS in Mass Communication',
+    experienceYears: 4,
+    imageUrl: '',
+    employeeType: 'Full Time',
+    joiningDate: '2022-02-10',
+    status: 'Active',
+    education: [
+      {
+        id: 'edu-rec-1',
+        degree: 'BS Mass Communication',
+        fieldOfStudy: 'Public Relations & Communication',
+        institution: 'University of Sindh',
+        year: '2021'
+      }
+    ],
+    certifications: [
+      'Healthcare Guest Services Protocol',
+      'Bilingual Patient Communication'
+    ],
+    skills: [
+      'Patient Registration',
+      'Helpline Coordination',
+      'Conflict Resolution',
+      'OPD Appointment Scheduling'
+    ],
+    responsibilities: [
+      'Manages front desk reception counter and incoming patient inquiries.',
+      'Assists patients with appointment registration, token generation, and doctor directory.',
+      'Coordinates emergency patient triage routing to emergency ward.'
+    ],
+    officialEmail: 'maryam.khan@aimshospital.org',
+    officialPhone: '+92 22 2101100 Ext. 102',
+    officeLocation: 'Main Atrium, Front Reception Desk 1',
+    biography: 'Maryam Khan oversees front-desk operations with warmth and professionalism, ensuring every visitor and patient receives immediate support upon entering AIMS Hospital.'
+  }
+];
+
+export function getStoredEmployeeDepartments(): EmployeeDepartment[] {
+  try {
+    const saved = localStorage.getItem('aims_custom_employee_departments');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.error('Error reading custom employee departments:', e);
+  }
+  return DEFAULT_EMPLOYEE_DEPARTMENTS;
+}
+
+export function saveStoredEmployeeDepartments(depts: EmployeeDepartment[]) {
+  try {
+    localStorage.setItem('aims_custom_employee_departments', JSON.stringify(depts));
+    window.dispatchEvent(new Event('aims_employee_departments_updated'));
+  } catch (e) {
+    console.error('Error saving custom employee departments:', e);
+  }
+}
+
+export function getStoredEmployees(): Employee[] {
+  try {
+    const saved = localStorage.getItem('aims_custom_employees');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        // Guarantee emp-101 (Hussain Shaikh) and emp-101b (Muhammad Saim) are present with latest info
+        let hasSaim = false;
+        const updated = parsed.map((emp: Employee) => {
+          let cleanImg = emp.imageUrl || '';
+          if (cleanImg.includes('unsplash.com')) {
+            cleanImg = '';
+          }
+
+          if (emp.id === 'emp-101' || emp.employeeId === 'EMP-IT-101') {
+            return {
+              ...emp,
+              fullName: 'Hussain Shaikh',
+              designation: 'IT Specialist',
+              highestQualification: 'ADCS Degree',
+              imageUrl: cleanImg,
+              education: INITIAL_EMPLOYEES[0].education,
+              certifications: INITIAL_EMPLOYEES[0].certifications,
+              skills: INITIAL_EMPLOYEES[0].skills,
+              responsibilities: INITIAL_EMPLOYEES[0].responsibilities,
+              biography: INITIAL_EMPLOYEES[0].biography
+            };
+          }
+          if (emp.id === 'emp-101b' || emp.employeeId === 'EMP-IT-102') {
+            hasSaim = true;
+          }
+          return {
+            ...emp,
+            imageUrl: cleanImg
+          };
+        });
+        if (!hasSaim) {
+          const saimObj = INITIAL_EMPLOYEES.find((e) => e.id === 'emp-101b');
+          if (saimObj) updated.push(saimObj);
+        }
+        return updated;
+      }
+    }
+  } catch (e) {
+    console.error('Error reading custom employees:', e);
+  }
+  return INITIAL_EMPLOYEES;
+}
+
+export function saveStoredEmployees(employees: Employee[]) {
+  try {
+    localStorage.setItem('aims_custom_employees', JSON.stringify(employees));
+    window.dispatchEvent(new Event('aims_employees_updated'));
+  } catch (e) {
+    console.error('Error saving custom employees:', e);
+  }
+}
+
+export function resetAllDataToDefault() {
+  localStorage.removeItem('aims_custom_doctors');
+  localStorage.removeItem('aims_custom_departments');
+  localStorage.removeItem('aims_custom_branches');
+  localStorage.removeItem('aims_custom_packages');
+  localStorage.removeItem('aims_custom_news');
+  localStorage.removeItem('aims_site_settings');
+  localStorage.removeItem('aims_custom_logo');
+  localStorage.removeItem('aims_custom_employee_departments');
+  localStorage.removeItem('aims_custom_employees');
+  window.dispatchEvent(new Event('aims_doctors_updated'));
+  window.dispatchEvent(new Event('aims_departments_updated'));
+  window.dispatchEvent(new Event('aims_branches_updated'));
+  window.dispatchEvent(new Event('aims_packages_updated'));
+  window.dispatchEvent(new Event('aims_news_updated'));
+  window.dispatchEvent(new Event('aims_settings_updated'));
+  window.dispatchEvent(new Event('aims_employee_departments_updated'));
+  window.dispatchEvent(new Event('aims_employees_updated'));
+}
+
+

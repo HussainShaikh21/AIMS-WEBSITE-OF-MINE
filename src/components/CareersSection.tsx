@@ -142,7 +142,7 @@ export const CareersSection: React.FC = () => {
                       <input
                         type="text"
                         required
-                        placeholder="Dr. Ananya Sharma"
+                        placeholder="Dr. Anum Fatima"
                         value={applicantName}
                         onChange={(e) => setApplicantName(e.target.value)}
                         className="w-full p-2.5 bg-slate-50 rounded-xl border border-slate-200 focus:outline-none focus:border-cyan-500"

@@ -1,5 +1,6 @@
-import React from 'react';
-import { HEALTH_PACKAGES } from '../data/hospitalData';
+import React, { useState, useEffect } from 'react';
+import { getStoredPackages } from '../data/hospitalData';
+import { HealthPackage } from '../types';
 import { CheckCircle2, ShieldCheck, Sparkles, Calendar, ArrowRight } from 'lucide-react';
 
 interface HealthPackagesSectionProps {
@@ -7,6 +8,15 @@ interface HealthPackagesSectionProps {
 }
 
 export const HealthPackagesSection: React.FC<HealthPackagesSectionProps> = ({ onBookPackage }) => {
+  const [packages, setPackages] = useState<HealthPackage[]>(() => getStoredPackages());
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setPackages(getStoredPackages());
+    };
+    window.addEventListener('aims_packages_updated', handleUpdate);
+    return () => window.removeEventListener('aims_packages_updated', handleUpdate);
+  }, []);
   return (
     <section id="packages" className="py-16 bg-slate-50 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,7 +33,7 @@ export const HealthPackagesSection: React.FC<HealthPackagesSectionProps> = ({ on
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {HEALTH_PACKAGES.map((pkg) => (
+          {packages.map((pkg) => (
             <div
               key={pkg.id}
               className={`bg-white rounded-2xl p-6 border shadow-sm flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:shadow-xl ${

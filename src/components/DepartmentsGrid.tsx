@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Department } from '../types';
-import { DEPARTMENTS_DATA } from '../data/hospitalData';
+import { getStoredDepartments } from '../data/hospitalData';
 import {
   HeartPulse,
   Brain,
@@ -28,8 +28,17 @@ export const DepartmentsGrid: React.FC<DepartmentsGridProps> = ({
   onBookAppointment
 }) => {
   const [activeFilter, setActiveFilter] = useState<'all' | 'clinical' | 'surgical' | 'diagnostic' | 'critical'>('all');
+  const [departments, setDepartments] = useState<Department[]>(() => getStoredDepartments());
 
-  const filteredDepts = DEPARTMENTS_DATA.filter((dept) => {
+  useEffect(() => {
+    const handleUpdate = () => {
+      setDepartments(getStoredDepartments());
+    };
+    window.addEventListener('aims_departments_updated', handleUpdate);
+    return () => window.removeEventListener('aims_departments_updated', handleUpdate);
+  }, []);
+
+  const filteredDepts = departments.filter((dept) => {
     if (activeFilter === 'all') return true;
     return dept.category === activeFilter;
   });

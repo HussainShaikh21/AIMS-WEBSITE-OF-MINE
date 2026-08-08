@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Doctor } from '../types';
-import { getStoredDoctors, DEPARTMENTS_DATA } from '../data/hospitalData';
+import { Doctor, Department } from '../types';
+import { getStoredDoctors, getStoredDepartments } from '../data/hospitalData';
 import { Search, Star, Clock, MapPin, Filter, UserCheck, Stethoscope } from 'lucide-react';
 
 interface DoctorSearchCatalogProps {
@@ -13,6 +13,7 @@ export const DoctorSearchCatalog: React.FC<DoctorSearchCatalogProps> = ({
   onSelectDoctor
 }) => {
   const [doctors, setDoctors] = useState<Doctor[]>(() => getStoredDoctors());
+  const [departments, setDepartments] = useState<Department[]>(() => getStoredDepartments());
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDeptId, setSelectedDeptId] = useState<string>('all');
   const [selectedExp, setSelectedExp] = useState<string>('all');
@@ -20,9 +21,14 @@ export const DoctorSearchCatalog: React.FC<DoctorSearchCatalogProps> = ({
   useEffect(() => {
     const handleUpdate = () => {
       setDoctors(getStoredDoctors());
+      setDepartments(getStoredDepartments());
     };
     window.addEventListener('aims_doctors_updated', handleUpdate);
-    return () => window.removeEventListener('aims_doctors_updated', handleUpdate);
+    window.addEventListener('aims_departments_updated', handleUpdate);
+    return () => {
+      window.removeEventListener('aims_doctors_updated', handleUpdate);
+      window.removeEventListener('aims_departments_updated', handleUpdate);
+    };
   }, []);
 
   const filteredDoctors = doctors.filter((doc) => {
@@ -80,8 +86,8 @@ export const DoctorSearchCatalog: React.FC<DoctorSearchCatalogProps> = ({
               className="w-full bg-white text-slate-800 text-xs py-2.5 px-3 rounded-xl border border-slate-200 focus:outline-none focus:border-cyan-500 cursor-pointer"
               id="doctor-catalog-dept-filter"
             >
-              <option value="all">All Departments (20+)</option>
-              {DEPARTMENTS_DATA.map((dept) => (
+              <option value="all">All Departments ({departments.length})</option>
+              {departments.map((dept) => (
                 <option key={dept.id} value={dept.id}>
                   {dept.name}
                 </option>

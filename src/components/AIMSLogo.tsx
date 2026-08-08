@@ -50,27 +50,12 @@ export const AIMSLogo: React.FC<AIMSLogoProps> = ({
   const badgeSize = sizeMap[size] || sizeMap.md;
 
   const imageSource = customLogo || '/aims_logo.png';
-  const conicGradient = 'conic-gradient(from 0deg, #06b6d4, #3b82f6, #8b5cf6, #ec4899, #f43f5e, #f97316, #eab308, #10b981, #06b6d4)';
 
   return (
     <div className={`flex items-center gap-4 group ${className}`}>
-      {/* Official AIMS Logo Display with Advanced Moving Colorful Light Ring & Glow */}
-      <div className={`relative flex-shrink-0 ${badgeSize} flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300`}>
-        {/* Outer Animated Glowing Aura (Soft Blur) */}
-        <div
-          className="absolute -inset-2 rounded-full blur-md opacity-75 group-hover:opacity-100 animate-rainbow-ring pointer-events-none transition-opacity"
-          style={{ background: conicGradient }}
-        />
-
-        {/* Crisp Moving Rainbow Light Beam Border */}
-        <div
-          className="absolute -inset-1 rounded-full animate-rainbow-ring pointer-events-none shadow-lg"
-          style={{ background: conicGradient }}
-        />
-
-        {/* Inner White Badge Container */}
-        <div className="relative w-full h-full p-1.5 bg-gradient-to-br from-white via-slate-50 to-emerald-50/60 rounded-full shadow-xl flex items-center justify-center border border-white/80 overflow-hidden z-10">
-          {!imgFailed ? (
+      {/* Official AIMS Logo Display */}
+      <div className={`relative flex-shrink-0 ${badgeSize} p-1.5 bg-white rounded-full shadow-md border border-slate-200 flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300`}>
+        {!imgFailed ? (
           <img
             src={imageSource}
             alt="Asian Institute of Medical Sciences (AIMS) Official Logo"
@@ -226,7 +211,6 @@ export const AIMSLogo: React.FC<AIMSLogoProps> = ({
             </g>
           </svg>
         )}
-        </div>
       </div>
 
       {/* Title & Subtitle */}

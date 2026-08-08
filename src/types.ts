@@ -182,6 +182,18 @@ export interface Prescription {
   doctorAdvice: string;
 }
 
+export interface SiteSettings {
+  announcementBanner: string;
+  showAnnouncementBanner: boolean;
+  emergencyHotline: string;
+  opdHelpline: string;
+  whatsappNumber: string;
+  hospitalName: string;
+  hospitalTagline: string;
+  heroHeadline: string;
+  heroSubheadline: string;
+}
+
 export interface TriageResponse {
   triageLevel: 'Emergency' | 'Urgent' | 'Routine' | 'General Info';
   recommendedDepartment: string;
@@ -191,3 +203,46 @@ export interface TriageResponse {
   warningSigns: string[];
   suggestedAction: string;
 }
+
+export interface EmployeeEducation {
+  id: string;
+  degree: string;
+  fieldOfStudy?: string;
+  institution: string;
+  year: string;
+}
+
+export interface EmployeeDepartment {
+  id: string;
+  name: string;
+  iconName: string;
+  description: string;
+  headOfDepartment: string;
+  contactEmail: string;
+  contactExtension: string;
+  isActive: boolean;
+}
+
+export interface Employee {
+  id: string;
+  employeeId: string;
+  fullName: string;
+  designation: string;
+  departmentId: string;
+  departmentName: string;
+  highestQualification: string;
+  experienceYears: number;
+  imageUrl: string;
+  employeeType: 'Full Time' | 'Part Time' | 'Contract' | 'Intern';
+  joiningDate: string;
+  status: 'Active' | 'Inactive' | 'On Leave';
+  education: EmployeeEducation[];
+  certifications: string[];
+  skills: string[];
+  responsibilities: string[];
+  officialEmail: string;
+  officialPhone: string;
+  officeLocation: string;
+  biography: string;
+}
+

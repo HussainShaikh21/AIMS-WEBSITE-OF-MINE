@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AIMSLogo } from './AIMSLogo';
 import {
   PhoneCall,
@@ -19,15 +19,26 @@ import {
   Award,
   Clock,
   Briefcase,
-  HeartHandshake
+  HeartHandshake,
+  Microscope,
+  Heart,
+  FileText,
+  BookOpen,
+  FileSpreadsheet,
+  Phone,
+  Users,
+  UserCheck
 } from 'lucide-react';
-import { DEPARTMENTS_DATA, DIAGNOSTICS_DATA } from '../data/hospitalData';
+import { getStoredSiteSettings, getStoredDepartments, DIAGNOSTICS_DATA } from '../data/hospitalData';
+import { Department } from '../types';
 
 interface NavbarProps {
   onOpenBooking: (deptId?: string, docId?: string) => void;
   onOpenPortal: () => void;
   onOpenAdmin: () => void;
   onOpenTriage: () => void;
+  onOpenResearch: (tab?: 'overview' | 'policies' | 'irb' | 'sops' | 'forms' | 'publications' | 'contact') => void;
+  onOpenEmployees?: () => void;
   onNavigateSection: (sectionId: string) => void;
 }
 
@@ -36,6 +47,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenPortal,
   onOpenAdmin,
   onOpenTriage,
+  onOpenResearch,
+  onOpenEmployees,
   onNavigateSection,
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -43,6 +56,21 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [selectedBranch, setSelectedBranch] = useState('Central Campus');
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [megaMenuTab, setMegaMenuTab] = useState<'departments' | 'diagnostics'>('departments');
+  const [siteSettings, setSiteSettings] = useState(() => getStoredSiteSettings());
+  const [departments, setDepartments] = useState<Department[]>(() => getStoredDepartments());
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setSiteSettings(getStoredSiteSettings());
+      setDepartments(getStoredDepartments());
+    };
+    window.addEventListener('aims_settings_updated', handleUpdate);
+    window.addEventListener('aims_departments_updated', handleUpdate);
+    return () => {
+      window.removeEventListener('aims_settings_updated', handleUpdate);
+      window.removeEventListener('aims_departments_updated', handleUpdate);
+    };
+  }, []);
 
   const languages = ['English', 'Urdu (اردو)', 'Sindhi (سنڌي)'];
 
@@ -63,8 +91,30 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span>Asian Institute of Medical Sciences • Dedicated 24/7 Super-Specialty Healthcare</span>
           </div>
 
-          {/* Language Selector */}
-          <div className="flex items-center gap-4">
+          {/* WhatsApp & Language Selector */}
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+            <div className="flex items-center gap-2 bg-emerald-950/80 text-emerald-300 px-2.5 py-0.5 rounded-md border border-emerald-800/60 text-[11px] font-bold">
+              <MessageSquare className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              <span>WhatsApp:</span>
+              <a
+                href="https://wa.me/923163355355"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white underline decoration-emerald-500/50"
+              >
+                +92 316 3355355
+              </a>
+              <span className="opacity-40">|</span>
+              <a
+                href="https://wa.me/923343355356"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white underline decoration-emerald-500/50"
+              >
+                +92 334 3355356
+              </a>
+            </div>
+
             <div className="flex items-center gap-1 text-slate-300">
               <Globe className="w-3.5 h-3.5 text-blue-400" />
               <select
@@ -93,28 +143,32 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600">
+          <nav className="hidden lg:flex items-center gap-2 text-xs font-extrabold text-slate-700">
             <button
               onClick={() => handleNavClick('hero')}
-              className="hover:text-blue-600 transition-colors"
+              className="px-3.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-900 rounded-xl border border-blue-200/90 hover:border-blue-300 transition-all shadow-xs flex items-center gap-1.5 font-extrabold"
+              id="nav-home-button"
             >
-              Home
+              <span>Home</span>
             </button>
+
             <button
               onClick={() => handleNavClick('about')}
-              className="hover:text-blue-600 transition-colors"
+              className="px-3.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-900 rounded-xl border border-blue-200/90 hover:border-blue-300 transition-all shadow-xs flex items-center gap-1.5 font-extrabold"
+              id="nav-about-button"
             >
-              About Us
+              <span>About Us</span>
             </button>
 
             {/* Mega Menu Trigger */}
             <div className="relative group" onMouseEnter={() => setIsMegaMenuOpen(true)} onMouseLeave={() => setIsMegaMenuOpen(false)}>
               <button
                 onClick={() => handleNavClick('departments')}
-                className="flex items-center gap-1 transition-colors hover:text-blue-600"
+                className="px-3.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-900 rounded-xl border border-blue-200/90 hover:border-blue-300 transition-all shadow-xs flex items-center gap-1.5 font-extrabold"
+                id="nav-departments-button"
               >
                 <span>Departments</span>
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDown className="w-3.5 h-3.5 text-blue-700" />
               </button>
 
               {/* Mega Menu Dropdown */}
@@ -145,7 +199,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                   {megaMenuTab === 'departments' ? (
                     <div className="grid grid-cols-3 gap-3">
-                      {DEPARTMENTS_DATA.slice(0, 9).map((dept) => (
+                      {departments.slice(0, 9).map((dept) => (
                         <div
                           key={dept.id}
                           onClick={() => {
@@ -225,21 +279,101 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <button
               onClick={() => handleNavClick('doctors')}
-              className="hover:text-blue-600 transition-colors"
+              className="px-3.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-900 rounded-xl border border-blue-200/90 hover:border-blue-300 transition-all shadow-xs flex items-center gap-1.5 font-extrabold"
+              id="nav-doctors-button"
             >
-              Doctors
+              <span>Doctors</span>
             </button>
+
             <button
-              onClick={() => handleNavClick('diagnostics')}
-              className="hover:text-blue-600 transition-colors"
+              onClick={() => {
+                if (onOpenEmployees) onOpenEmployees();
+              }}
+              className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl border border-blue-500 transition-all shadow-md flex items-center gap-1.5 font-extrabold cursor-pointer"
+              id="nav-employees-button"
             >
-              Diagnostics
+              <Users className="w-4 h-4 text-blue-100 shrink-0" />
+              <span>Employees</span>
             </button>
+
+            {/* Research Menu & Modal Trigger */}
+            <div className="relative group">
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  onOpenResearch('overview');
+                }}
+                className="px-3.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-900 rounded-xl border border-blue-200/90 hover:border-blue-300 transition-all shadow-xs flex items-center gap-1.5 font-extrabold"
+                id="nav-research-button"
+              >
+                <Microscope className="w-4 h-4 text-blue-700 shrink-0" />
+                <span>Research</span>
+                <ChevronDown className="w-3.5 h-3.5 text-blue-700" />
+              </button>
+
+              {/* Research Dropdown Menu */}
+              <div className="absolute top-full left-0 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 p-2 z-50 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-200 transform translate-y-1 group-hover:translate-y-0">
+                <div className="text-[10px] font-black uppercase text-slate-400 px-3 py-1 tracking-wider">
+                  AIMS Research & Development
+                </div>
+                <button
+                  onClick={() => onOpenResearch('overview')}
+                  className="w-full text-left px-3 py-2 text-xs font-bold text-slate-800 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-colors flex items-center gap-2"
+                >
+                  <Microscope className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Research Overview</span>
+                </button>
+                <button
+                  onClick={() => onOpenResearch('policies')}
+                  className="w-full text-left px-3 py-2 text-xs font-bold text-slate-800 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-colors flex items-center gap-2"
+                >
+                  <FileText className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Research Policies</span>
+                </button>
+                <button
+                  onClick={() => onOpenResearch('irb')}
+                  className="w-full text-left px-3 py-2 text-xs font-bold text-slate-800 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-colors flex items-center gap-2"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Institutional Review Board (IRB)</span>
+                </button>
+                <button
+                  onClick={() => onOpenResearch('sops')}
+                  className="w-full text-left px-3 py-2 text-xs font-bold text-slate-800 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-colors flex items-center gap-2"
+                >
+                  <BookOpen className="w-3.5 h-3.5 text-blue-600" />
+                  <span>IRB SOPs</span>
+                </button>
+                <button
+                  onClick={() => onOpenResearch('forms')}
+                  className="w-full text-left px-3 py-2 text-xs font-bold text-slate-800 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-colors flex items-center gap-2"
+                >
+                  <FileSpreadsheet className="w-3.5 h-3.5 text-blue-600" />
+                  <span>IRB Application Forms</span>
+                </button>
+                <button
+                  onClick={() => onOpenResearch('publications')}
+                  className="w-full text-left px-3 py-2 text-xs font-bold text-slate-800 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-colors flex items-center gap-2"
+                >
+                  <Award className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Publications & Library</span>
+                </button>
+                <button
+                  onClick={() => onOpenResearch('contact')}
+                  className="w-full text-left px-3 py-2 text-xs font-bold text-slate-800 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-colors flex items-center gap-2 border-t border-slate-100 mt-1 pt-2"
+                >
+                  <Phone className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Research Office Contacts</span>
+                </button>
+              </div>
+            </div>
+
             <button
               onClick={() => handleNavClick('packages')}
-              className="hover:text-blue-600 transition-colors"
+              className="px-3.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-900 rounded-xl border border-blue-200/90 hover:border-blue-300 transition-all shadow-xs flex items-center gap-1.5 font-extrabold"
+              id="nav-packages-button"
             >
-              Health Packages
+              <span>Health Packages</span>
             </button>
           </nav>
 
@@ -327,10 +461,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               Doctors Catalog
             </button>
             <button
-              onClick={() => handleNavClick('diagnostics')}
-              className="p-2.5 text-left text-sm font-semibold text-slate-700 rounded-lg hover:bg-slate-50"
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                if (onOpenEmployees) onOpenEmployees();
+              }}
+              className="p-2.5 text-left text-sm font-bold text-blue-700 rounded-lg bg-blue-50 flex items-center gap-1.5"
             >
-              Diagnostics
+              <Users className="w-4 h-4 text-blue-600" />
+              <span>Employees Directory</span>
             </button>
             <button
               onClick={() => handleNavClick('packages')}
@@ -351,10 +489,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               Careers
             </button>
             <button
-              onClick={() => handleNavClick('donation')}
-              className="p-2.5 text-left text-sm font-semibold text-slate-700 rounded-lg hover:bg-slate-50"
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                onOpenResearch('overview');
+              }}
+              className="p-2.5 text-left text-sm font-black text-cyan-700 bg-cyan-50 rounded-lg hover:bg-cyan-100 flex items-center gap-2 border border-cyan-200"
             >
-              AIMS Foundation
+              <Microscope className="w-4 h-4 text-cyan-600" />
+              <span>Research Division</span>
             </button>
           </div>
 

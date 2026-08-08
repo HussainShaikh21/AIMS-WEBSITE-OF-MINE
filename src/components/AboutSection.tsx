@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Award, ShieldCheck, Heart, Eye, Target, Calendar, CheckCircle, ChevronRight, Sparkles } from 'lucide-react';
+import { Award, ShieldCheck, Heart, Eye, Target, Calendar, CheckCircle, ChevronRight, Sparkles, Stethoscope, Building2 } from 'lucide-react';
 
 export const AboutSection: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'mission' | 'vision' | 'director' | 'timeline'>('mission');
+  const [activeTab, setActiveTab] = useState<'mission' | 'vision' | 'director' | 'timeline'>('director');
 
   const milestones = [
-    { year: '2004', title: 'Foundation of AIMS Hospital', desc: 'Started as a 100-bed multi-specialty unit with 24/7 cardiac emergency.' },
+    { year: '2004', title: 'Foundation of AIMS Hospital', desc: 'Established as a premier 125-bed multi-specialty healthcare institution in Hyderabad with 24/7 cardiac emergency.' },
     { year: '2012', title: 'NABH & JCI Accreditation', desc: 'Achieved international healthcare accreditation standards and Level 4 NICU commissioning.' },
     { year: '2019', title: 'Robotic Surgery & 128-Slice CT Installation', desc: 'Integrated MAKO robotic joint replacement and ultra-fast 128-slice cardiac CT scan.' },
     { year: '2024', title: 'AI Diagnostics & Comprehensive Cancer Pavilion', desc: 'Launched AI-assisted radiology triage and 500-bed super-specialty campus.' }
@@ -142,28 +142,52 @@ export const AboutSection: React.FC = () => {
           )}
 
           {activeTab === 'director' && (
-            <div className="grid md:grid-cols-12 gap-6 items-center animate-in fade-in duration-300">
-              <div className="md:col-span-4">
-                <img
-                  src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80"
-                  alt="Dr. Vikramaditya Mehta - Chairman"
-                  className="w-full h-64 object-cover rounded-2xl border border-slate-700 shadow-md"
-                />
-              </div>
-              <div className="md:col-span-8 space-y-3">
-                <span className="text-xs font-extrabold text-cyan-400 uppercase tracking-wider">
-                  Message from the Chairman
-                </span>
-                <h3 className="text-xl sm:text-2xl font-bold text-white">
-                  "At Asian Institute of Medical Sciences (AIMS), Every Pulse Matters and Every Patient is Family."
-                </h3>
-                <blockquote className="text-slate-300 text-xs sm:text-sm italic leading-relaxed border-l-2 border-cyan-500 pl-4 py-1">
-                  Healthcare is not just an industry; it is a sacred trust. When a patient walks through the doors of Asian Institute of Medical Sciences (AIMS), they entrust us with their life and hopes. We meet that trust with relentless clinical perfection, 128-slice precision diagnostics, and genuine warmth.
-                </blockquote>
-                <div>
-                  <h4 className="text-sm font-bold text-white">Dr. Vikramaditya Mehta</h4>
-                  <p className="text-xs text-slate-400">Chairman & Chief Interventional Cardiologist, AIMS Group</p>
+            <div className="space-y-6 animate-in fade-in duration-300">
+              {/* Dual Executive Cards Grid */}
+              <div className="grid md:grid-cols-2 gap-6">
+                
+                {/* Director Card */}
+                <div className="bg-slate-800/80 p-5 rounded-2xl border border-slate-700 space-y-4 flex flex-col justify-between">
+                  <div className="flex items-start gap-4">
+                    <div className="w-20 h-24 rounded-xl bg-gradient-to-br from-slate-900 to-cyan-950 flex flex-col items-center justify-center border border-cyan-500/50 shrink-0 shadow-inner text-cyan-400">
+                      <Stethoscope className="w-7 h-7 mb-1" />
+                      <span className="text-xs font-black tracking-widest text-white">SM</span>
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-black uppercase text-cyan-400 bg-cyan-950/80 px-2.5 py-0.5 rounded-full border border-cyan-800/50">
+                        Executive Director
+                      </span>
+                      <h4 className="text-base font-extrabold text-white mt-1">Prof. Dr. Sadik Memon</h4>
+                      <p className="text-xs text-slate-300 font-medium">Executive Director & Chief Medical Officer</p>
+                      <p className="text-[11px] text-cyan-300 font-semibold mt-0.5">125-Bedded Hospital Facility</p>
+                    </div>
+                  </div>
+                  <blockquote className="text-xs text-slate-300 italic border-l-2 border-cyan-500 pl-3 py-1 bg-slate-900/60 rounded-r-lg">
+                    "At AIMS Hospital, our 125-bed multi-specialty institution provides 24/7 cardiac emergency, 128-slice CT imaging, and ethical patient care for the people of Hyderabad & Sindh."
+                  </blockquote>
                 </div>
+
+                {/* CEO Card */}
+                <div className="bg-slate-800/80 p-5 rounded-2xl border border-slate-700 space-y-4 flex flex-col justify-between">
+                  <div className="flex items-start gap-4">
+                    <div className="w-20 h-24 rounded-xl bg-gradient-to-br from-slate-900 to-blue-950 flex flex-col items-center justify-center border border-blue-500/50 shrink-0 shadow-inner text-blue-400">
+                      <Building2 className="w-7 h-7 mb-1" />
+                      <span className="text-xs font-black tracking-widest text-white">FA</span>
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-black uppercase text-cyan-400 bg-cyan-950/80 px-2.5 py-0.5 rounded-full border border-cyan-800/50">
+                        Chief Executive Officer
+                      </span>
+                      <h4 className="text-base font-extrabold text-white mt-1">Muhammad Farhan Abbasi</h4>
+                      <p className="text-xs text-slate-300 font-medium">Chief Executive Officer (CEO)</p>
+                      <p className="text-[11px] text-cyan-300 font-semibold mt-0.5">125-Bedded Hospital Facility</p>
+                    </div>
+                  </div>
+                  <blockquote className="text-xs text-slate-300 italic border-l-2 border-cyan-500 pl-3 py-1 bg-slate-900/60 rounded-r-lg">
+                    "As CEO, I am committed to advancing operational excellence across our 125 inpatient beds, modular ICUs, and cutting-edge medical technologies."
+                  </blockquote>
+                </div>
+
               </div>
             </div>
           )}

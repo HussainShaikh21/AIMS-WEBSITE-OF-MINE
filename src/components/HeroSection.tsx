@@ -4,6 +4,7 @@ import {
   Calendar,
   ShieldAlert,
   PhoneCall,
+  MessageSquare,
   Activity,
   Award,
   Scan,
@@ -15,8 +16,8 @@ import {
   CheckCircle2,
   Stethoscope
 } from 'lucide-react';
-import { getStoredDoctors, DEPARTMENTS_DATA } from '../data/hospitalData';
-import { Doctor } from '../types';
+import { getStoredDoctors, getStoredDepartments, getStoredSiteSettings } from '../data/hospitalData';
+import { Doctor, Department } from '../types';
 
 interface HeroSectionProps {
   onOpenBooking: (deptId?: string, docId?: string) => void;
@@ -34,6 +35,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onNavigateSection
 }) => {
   const [doctors, setDoctors] = useState<Doctor[]>(() => getStoredDoctors());
+  const [departments, setDepartments] = useState<Department[]>(() => getStoredDepartments());
+  const [siteSettings, setSiteSettings] = useState(() => getStoredSiteSettings());
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<{ type: 'doctor' | 'dept'; id: string; name: string; subtitle: string }[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -41,9 +44,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   useEffect(() => {
     const handleUpdate = () => {
       setDoctors(getStoredDoctors());
+      setDepartments(getStoredDepartments());
+      setSiteSettings(getStoredSiteSettings());
     };
     window.addEventListener('aims_doctors_updated', handleUpdate);
-    return () => window.removeEventListener('aims_doctors_updated', handleUpdate);
+    window.addEventListener('aims_departments_updated', handleUpdate);
+    window.addEventListener('aims_settings_updated', handleUpdate);
+    return () => {
+      window.removeEventListener('aims_doctors_updated', handleUpdate);
+      window.removeEventListener('aims_departments_updated', handleUpdate);
+      window.removeEventListener('aims_settings_updated', handleUpdate);
+    };
   }, []);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,7 +80,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       subtitle: `${d.title} (${d.departmentName})`
     }));
 
-    const matchedDepts = DEPARTMENTS_DATA.filter(
+    const matchedDepts = departments.filter(
       (dp) => dp.name.toLowerCase().includes(q) || dp.shortDesc.toLowerCase().includes(q)
     ).slice(0, 3).map((dp) => ({
       type: 'dept' as const,
@@ -95,14 +106,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </span>
 
             {/* Main Title */}
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-800 leading-tight">
-              Advanced Medical Care <br />
-              <span className="text-blue-600 italic font-serif">For You & Yours</span>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-tight">
+              {siteSettings.heroHeadline}
             </h1>
 
             {/* Lead Paragraph */}
-            <p className="text-slate-500 text-base sm:text-lg leading-relaxed max-w-xl">
-              Experience world-class healthcare with India's leading specialists. Combining cutting-edge 128-slice CT imaging with compassionate care for over 25 years.
+            <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl font-medium">
+              {siteSettings.heroSubheadline}
             </p>
 
             {/* Doctor & Specialty Instant Search Box */}
@@ -212,6 +222,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               >
                 <PhoneCall className="w-4 h-4 text-red-600 animate-pulse" />
                 <span>Emergency: 1066</span>
+              </a>
+
+              <a
+                href="https://wa.me/923163355355"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-5 py-3.5 rounded-full text-sm font-bold border border-emerald-300 transition-all flex items-center gap-2"
+              >
+                <MessageSquare className="w-4 h-4 text-emerald-600" />
+                <span>WhatsApp: +92 316 3355355</span>
               </a>
             </div>
           </div>
